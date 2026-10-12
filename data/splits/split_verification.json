@@ -1,0 +1,22 @@
+{
+  "seed": 20260901,
+  "source_file": "train_separate_questions.json",
+  "counts": {
+    "contracts": 408,
+    "documents": 408,
+    "categories": 41,
+    "annotation_sets": 16728,
+    "spans": 11180
+  },
+  "integrity": {
+    "invalid_spans": 0,
+    "duplicate_span_records": 0,
+    "duplicate_context_groups": 1
+  },
+  "split": {
+    "train_contracts": 326,
+    "validation_contracts": 82,
+    "contract_overlap": 0,
+    "context_group_overlap": 0
+  }
+}

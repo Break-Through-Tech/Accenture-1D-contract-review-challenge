@@ -1,0 +1,5 @@
+anomaly_id,description,severity,owner,status,impact,final_decision
+A001,"Extreme variation in training document length; longest document contains 338,211 characters.",Low,Mary-Kate,Reviewed,Very long documents may require more processing and could be affected by model input-length limits.,Keep; no evidence of corruption found from length and annotation-count checks.
+A002,"Very short training documents; shortest document contains 1,081 characters.",Low,Mary-Kate,Reviewed,Short documents contain fewer available annotations than many larger contracts.,Keep; short documents still contain annotated spans.
+A003,Low annotation-count contracts; minimum observed span count is 2.,Low,Mary-Kate,Reviewed,Some contracts provide relatively little positive annotation signal.,Keep; no training contracts have zero annotated spans.
+A004,Large variation in category support; some categories contain substantially fewer contracts than others.,Low,Mary-Kate,Reviewed,Rare categories provide fewer examples for model training and validation.,"Accept; all categories remain represented in both training and validation, and low-support categories maintain reasonable split proportions."
