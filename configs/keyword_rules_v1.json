@@ -1,0 +1,476 @@
+{
+  "rule_set_version": "keyword_rules_v1",
+  "chunk_config_version": "gate3_chunking_v1",
+  "revision_notes": ["2026-10-16: train-only audit revisions P1-P8 approved by Mahir before freeze; no validation data used. Draft, not frozen: decision tables, scorer and teammate review still pending."],
+  "categories": {
+    "Renewal Term": {
+      "groups": [
+        {
+          "group_id": "RT-G1",
+          "role": "anchor",
+          "name": "automatic renewal wording",
+          "rules": [
+            {"rule_id": "RT-G1-01", "phrase": "automatically renew", "source_type": "train_span", "provenance": "Renewal Term train spans P2, P3, P5 (explore.py, seed 20260904)", "rationale": "Core automatic-renewal wording; matches renew/renews/renewed by substring", "intended_behavior": "Fires on 'shall automatically renew for successive terms'; not on 'not to renew'", "reviewer": null},
+            {"rule_id": "RT-G1-02", "phrase": "automatic extension", "source_type": "train_span", "provenance": "Renewal Term train span P4", "rationale": "Same idea as renewal, worded as extension", "intended_behavior": "Fires on 'subject to an automatic extension for consecutive one year periods'", "reviewer": null},
+            {"rule_id": "RT-G1-03", "phrase": "automatic renewal", "source_type": "drafting_variant", "provenance": "Noun form of RT-G1-01; not seen in the 5 samples", "rationale": "Common contract wording, covers 'automatic renewal term'", "intended_behavior": "Same as RT-G1-01", "reviewer": null},
+            {"rule_id": "RT-G1-04", "phrase": "renew for", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P1): precision 1.00, 28 spans", "rationale": "Renewal wording not covered by RT-G1-01..03", "intended_behavior": "Same as RT-G1-01", "reviewer": null},
+            {"rule_id": "RT-G1-05", "phrase": "shall renew", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P1): precision 1.00, 3 spans", "rationale": "Renewal wording not covered by RT-G1-01..03", "intended_behavior": "Same as RT-G1-01", "reviewer": null},
+            {"rule_id": "RT-G1-06", "phrase": "automatically extended", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P1): precision 1.00, 3 spans", "rationale": "Renewal wording not covered by RT-G1-01..03", "intended_behavior": "Same as RT-G1-01", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "RT-G2",
+          "role": "anchor",
+          "name": "successive renewal terms",
+          "rules": [
+            {"rule_id": "RT-G2-02", "phrase": "successive terms", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P1): precision 1.00, 5 spans", "rationale": "Replaces bare 'successive' (matched 'twelve (12) successive months')", "intended_behavior": "Fires on 'successive one (1) year terms'; not on 'successive months'", "reviewer": null},
+            {"rule_id": "RT-G2-03", "phrase": "successive one", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P1): precision 0.92, 14 spans", "rationale": "Replaces bare 'successive' (matched 'twelve (12) successive months')", "intended_behavior": "Fires on 'successive one (1) year terms'; not on 'successive months'", "reviewer": null},
+            {"rule_id": "RT-G2-04", "phrase": "successive renewal", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P1): precision 1.00, 2 spans", "rationale": "Replaces bare 'successive' (matched 'twelve (12) successive months')", "intended_behavior": "Fires on 'successive one (1) year terms'; not on 'successive months'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "RT-G3",
+          "role": "support",
+          "name": "named renewal period",
+          "rules": [
+            {"rule_id": "RT-G3-01", "phrase": "renewal term", "source_type": "train_span", "provenance": "Renewal Term train span P3 ('each a Renewal Term')", "rationale": "Defined term, but also appears in Expiration Date text, so support only", "intended_behavior": "Adds +1; never enough alone at a threshold of 2 or more", "reviewer": null},
+            {"rule_id": "RT-G3-02", "phrase": "extension term", "source_type": "train_span", "provenance": "Renewal Term train span P4", "rationale": "Same as renewal term, different defined name", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "RT-G5",
+          "role": "support",
+          "name": "notice-to-stop renewal",
+          "rules": [
+            {"rule_id": "RT-G5-01", "phrase": "unless either party", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P1): precision 0.93, 26 spans", "rationale": "Typical 'renews unless either party gives notice' clause", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "RT-G4",
+          "role": "counter",
+          "name": "non-renewal notice",
+          "rules": [
+            {"rule_id": "RT-G4-01", "phrase": "not to renew", "source_type": "hard_negative_review", "provenance": "Renewal Term hard negative N2 (gate2_excerpt_review.csv), labeled Notice Period To Terminate Renewal", "rationale": "Notice of non-renewal is a different category", "intended_behavior": "Subtracts 1 when a chunk says the party will not renew", "reviewer": null},
+            {"rule_id": "RT-G4-02", "phrase": "non-renewal", "source_type": "drafting_variant", "provenance": "Hyphenated form of RT-G4-01; hyphens are normalized, so this also matches 'non‑renewal'", "rationale": "Catches 'notice of non-renewal'", "intended_behavior": "Subtracts 1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+        {"rule_id": "RT-V1", "phrase": "not automatically renew", "cancels_group": "RT-G1", "source_type": "drafting_variant", "provenance": "Negation of RT-G1-01", "rationale": "A clause saying the contract does NOT auto-renew is the opposite of a renewal term", "intended_behavior": "An RT-G1 match inside this phrase scores 0", "reviewer": null}
+      ]
+    },
+    "Expiration Date": {
+      "groups": [
+        {
+          "group_id": "ED-G1",
+          "role": "anchor",
+          "name": "how long the agreement lasts",
+          "rules": [
+            {"rule_id": "ED-G1-01", "phrase": "term of this agreement", "source_type": "train_span", "provenance": "Expiration Date train spans P2, P5 ('The term of this Agreement...')", "rationale": "Most common way a contract states its duration", "intended_behavior": "Fires on 'The term of this Agreement is five (5) years'", "reviewer": null},
+            {"rule_id": "ED-G1-02", "phrase": "remain in effect", "source_type": "train_span", "provenance": "Expiration Date train spans P2, P4 ('will remain in effect')", "rationale": "Duration wording without the word 'term'", "intended_behavior": "Fires on 'shall remain in effect until...'", "reviewer": null},
+            {"rule_id": "ED-G1-03", "phrase": "in effect until", "source_type": "train_span", "provenance": "Expiration Date train span P1 ('in effect until March 18')", "rationale": "States an end date directly", "intended_behavior": "Fires on 'shall be in effect until March 18, 2021'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "ED-G2",
+          "role": "anchor",
+          "name": "expiry wording",
+          "rules": [
+            {"rule_id": "ED-G2-01", "phrase": "shall expire", "source_type": "drafting_variant", "provenance": "Not seen in the 5 samples; standard contract wording", "rationale": "Direct statement that the agreement ends", "intended_behavior": "Fires on 'this Agreement shall expire on...'", "reviewer": null},
+            {"rule_id": "ED-G2-02", "phrase": "expiration date", "source_type": "drafting_variant", "provenance": "Category name 'Expiration Date' (CUAD category description)", "rationale": "Literal category wording", "intended_behavior": "Fires on 'the expiration date of this Agreement'", "reviewer": null},
+            {"rule_id": "ED-G2-03", "phrase": "termination date", "source_type": "train_span", "provenance": "Expiration Date train span P4 ('until the termination date specified in Exhibit A')", "rationale": "Another way to name the end date", "intended_behavior": "Fires on 'until the termination date specified'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "ED-G3",
+          "role": "support",
+          "name": "initial term wording",
+          "rules": [
+            {"rule_id": "ED-G3-01", "phrase": "initial term", "source_type": "train_span", "provenance": "Expiration Date train span P3; also in Renewal hard negatives", "rationale": "Strong hint but shared with Renewal Term text, so support only", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "ED-G4",
+          "role": "counter",
+          "name": "renewal wording",
+          "rules": [
+            {"rule_id": "ED-G4-01", "phrase": "automatically renew", "source_type": "hard_negative_review", "provenance": "Expiration Date hard negatives N2, N4 (gate2_excerpt_review.csv)", "rationale": "Auto-renewal text is a different category", "intended_behavior": "Subtracts 1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "ED-G5",
+          "role": "counter",
+          "name": "start-date wording",
+          "rules": [
+            {"rule_id": "ED-G5-01", "phrase": "effective as of", "source_type": "hard_negative_review", "provenance": "Expiration Date hard negative N5 (labeled Effective Date)", "rationale": "A start date is not an end date", "intended_behavior": "Subtracts 1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+      ]
+    },
+    "License Grant": {
+      "groups": [
+        {
+          "group_id": "LG-G1",
+          "role": "anchor",
+          "name": "grant verb",
+          "rules": [
+            {"rule_id": "LG-G1-01", "phrase": "hereby grants", "source_type": "train_span", "provenance": "License Grant train spans P1, P3, P4, P5", "rationale": "Standard opening of a license grant", "intended_behavior": "Fires on 'X hereby grants to Y a non-exclusive license'", "reviewer": null},
+            {"rule_id": "LG-G1-02", "phrase": "grants to", "source_type": "train_span", "provenance": "License Grant train spans P1, P3; hard negatives N3, N4", "rationale": "Grant verb without 'hereby'", "intended_behavior": "Fires on 'grants to Company the right'; can also fire on non-license grants, which the license object rules check", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "LG-G2",
+          "role": "anchor",
+          "name": "license object",
+          "rules": [
+            {"rule_id": "LG-G2-01", "phrase": "license to", "source_type": "train_span", "provenance": "License Grant train spans P1, P3, P4, P5", "rationale": "What is granted; avoids the bare word 'license', which also appears in unrelated text", "intended_behavior": "Fires on 'a non-exclusive license to use the Marks'", "reviewer": null},
+            {"rule_id": "LG-G2-02", "phrase": "right and license", "source_type": "train_span", "provenance": "License Grant train spans P2, P3", "rationale": "Common pairing in grants", "intended_behavior": "Fires on 'the right and license to use'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "LG-G3",
+          "role": "support",
+          "name": "license qualifiers",
+          "rules": [
+            {"rule_id": "LG-G3-01", "phrase": "non-exclusive", "source_type": "train_span", "provenance": "License Grant train spans P3, P4, P5", "rationale": "Typical qualifier of a license", "intended_behavior": "Adds +1", "reviewer": null},
+            {"rule_id": "LG-G3-02", "phrase": "royalty-free", "source_type": "train_span", "provenance": "License Grant train spans P1, P5 (P1 spelled 'royalty- free')", "rationale": "Typical qualifier of a license", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "LG-G4",
+          "role": "counter",
+          "name": "irrevocable or perpetual",
+          "rules": [
+            {"rule_id": "LG-G4-01", "phrase": "irrevocable", "source_type": "hard_negative_review", "provenance": "License Grant hard negatives N1, N2 (labeled Irrevocable Or Perpetual License)", "rationale": "Different category", "intended_behavior": "Subtracts 1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+      ]
+    },
+    "Non-Transferable License": {
+      "groups": [
+        {
+          "group_id": "NT-G1",
+          "role": "anchor",
+          "name": "non-transferable wording",
+          "rules": [
+            {"rule_id": "NT-G1-01", "phrase": "non-transferable", "source_type": "train_span", "provenance": "Non-Transferable License train spans P1, P2, P4, P5", "rationale": "Core wording of the category", "intended_behavior": "Fires on 'a non-exclusive, non-transferable license'", "reviewer": null},
+            {"rule_id": "NT-G1-02", "phrase": "non- transferable", "source_type": "drafting_variant", "provenance": "Spacing variant seen as 'royalty- free' in License Grant P1", "rationale": "Text extraction can leave a space after a hyphen", "intended_behavior": "Fires on 'non- transferable'", "reviewer": null},
+            {"rule_id": "NT-G1-03", "phrase": "nontransferable", "source_type": "train_span", "provenance": "License Grant train span P3 ('nontransferable right and license')", "rationale": "No-hyphen spelling", "intended_behavior": "Fires on 'nontransferable'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "NT-G2",
+          "role": "anchor",
+          "name": "cannot be sold or transferred",
+          "rules": [
+            {"rule_id": "NT-G2-01", "phrase": "may not be sold or transferred", "source_type": "train_span", "provenance": "Non-Transferable License train span P3 ('Such usage may not be sold or transferred')", "rationale": "Same idea without the word 'non-transferable'", "intended_behavior": "Fires on 'may not be sold or transferred'", "reviewer": null},
+            {"rule_id": "NT-G2-02", "phrase": "non-assignable", "source_type": "train_span", "provenance": "License Grant train span P5 ('non-transferable, non-assignable')", "rationale": "Assignment restriction on the license", "intended_behavior": "Fires on 'non-assignable'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "NT-G3",
+          "role": "support",
+          "name": "sublicense or assign restriction",
+          "rules": [
+            {"rule_id": "NT-G3-01", "phrase": "sublicense", "source_type": "train_span", "provenance": "Discussed in Phase 2; also in License Grant P1, P5", "rationale": "Weaker evidence: appears in License Grant text too", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "NT-G4",
+          "role": "counter",
+          "name": "freely transferable",
+          "rules": [
+            {"rule_id": "NT-G4-01", "phrase": "freely transferable", "source_type": "drafting_variant", "provenance": "Opposite of NT-G1; not seen in samples", "rationale": "Says the license CAN be transferred", "intended_behavior": "Subtracts 1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+      ]
+    },
+    "Exclusivity": {
+      "groups": [
+        {
+          "group_id": "EX-G1",
+          "role": "anchor",
+          "name": "exclusive right or role",
+          "rules": [
+            {"rule_id": "EX-G1-01", "phrase": "exclusive right", "source_type": "train_span", "provenance": "Exclusivity train span P1 ('the exclusive right to sell and distribute')", "rationale": "Core wording of an exclusivity grant", "intended_behavior": "Fires on 'the exclusive right to sell'; vetoed inside 'non-exclusive right'", "reviewer": null},
+            {"rule_id": "EX-G1-02", "phrase": "exclusive distributor", "source_type": "train_span", "provenance": "Exclusivity train span P1", "rationale": "Names the exclusive role", "intended_behavior": "Fires on 'Company's exclusive distributor'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "EX-G2",
+          "role": "anchor",
+          "name": "exclusively",
+          "rules": [
+            {"rule_id": "EX-G2-01", "phrase": "exclusively", "source_type": "drafting_variant", "provenance": "Not seen in the 5 samples; standard exclusivity wording", "rationale": "Adverb form for 'sell exclusively to'", "intended_behavior": "Fires on 'shall purchase exclusively from'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "EX-G3",
+          "role": "support",
+          "name": "competitor wording",
+          "rules": [
+            {"rule_id": "EX-G3-01", "phrase": "competes with", "source_type": "train_span", "provenance": "Exclusivity train span P4 ('competes with the Product')", "rationale": "Restriction on dealing with competitors; shared with Non-Compete", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+        {"rule_id": "EX-V1", "phrase": "non-exclusive", "cancels_group": "EX-G1", "source_type": "hard_negative_review", "provenance": "Exclusivity hard negatives N1-N4 (all contain 'non-exclusive')", "rationale": "'exclusive' inside 'non-exclusive' is the opposite meaning", "intended_behavior": "An EX-G1 match overlapping this phrase scores 0", "reviewer": null},
+        {"rule_id": "EX-V2", "phrase": "nonexclusive", "cancels_group": "EX-G1", "source_type": "drafting_variant", "provenance": "No-hyphen spelling of EX-V1", "rationale": "Same as EX-V1", "intended_behavior": "Same as EX-V1", "reviewer": null},
+        {"rule_id": "EX-V3", "phrase": "non- exclusive", "cancels_group": "EX-G1", "source_type": "drafting_variant", "provenance": "Spacing variant, as in 'royalty- free'", "rationale": "Same as EX-V1", "intended_behavior": "Same as EX-V1", "reviewer": null}
+      ]
+    },
+    "Non-Compete": {
+      "groups": [
+        {
+          "group_id": "NC-G1",
+          "role": "anchor",
+          "name": "agrees not to compete",
+          "rules": [
+            {"rule_id": "NC-G1-01", "phrase": "not compete", "source_type": "drafting_variant", "provenance": "Category name 'Non-Compete' (CUAD category description)", "rationale": "Direct wording: 'shall not compete'", "intended_behavior": "Fires on 'shall not compete with the Company'", "reviewer": null},
+            {"rule_id": "NC-G1-02", "phrase": "not to compete", "source_type": "drafting_variant", "provenance": "Variant of NC-G1-01", "rationale": "'agrees not to compete'", "intended_behavior": "Fires on 'agrees not to compete'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "NC-G2",
+          "role": "anchor",
+          "name": "competing business",
+          "rules": [
+            {"rule_id": "NC-G2-01", "phrase": "competes with", "source_type": "train_span", "provenance": "Non-Compete train span P1 ('any business or entity which competes with')", "rationale": "Describes the forbidden business", "intended_behavior": "Fires on 'a business which competes with'", "reviewer": null},
+            {"rule_id": "NC-G2-03", "phrase": "compete with", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P4): precision 0.60, 12 spans", "rationale": "Best available Non-Compete anchor phrases", "intended_behavior": "Fires on 'shall not compete with the Company'", "reviewer": null},
+            {"rule_id": "NC-G2-04", "phrase": "competitive business", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P4): precision 0.56, 10 spans", "rationale": "Best available Non-Compete anchor phrases", "intended_behavior": "Fires on 'shall not compete with the Company'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "NC-G3",
+          "role": "support",
+          "name": "indirect involvement",
+          "rules": [
+            {"rule_id": "NC-G3-01", "phrase": "directly or indirectly", "source_type": "train_span", "provenance": "Non-Compete P1 wording; also in no-solicit hard negatives", "rationale": "Shared with no-solicit clauses, so support only", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "NC-G5",
+          "role": "support",
+          "name": "competition wording",
+          "rules": [
+            {"rule_id": "NC-G2-02", "phrase": "competing", "source_type": "train_span", "provenance": "Non-Compete train span P3 ('any competing professional liability products') | Train audit 2026-10-16 (approved P4): demoted to support; precision 0.43", "rationale": "Describes the forbidden business", "intended_behavior": "Fires on 'competing products'", "reviewer": null},
+            {"rule_id": "NC-G5-02", "phrase": "non-competition", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P4): precision 0.52, 6 spans", "rationale": "Heading/defined-term wording", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "NC-G4",
+          "role": "counter",
+          "name": "employee no-solicit",
+          "rules": [
+            {"rule_id": "NC-G4-01", "phrase": "solicit", "source_type": "hard_negative_review", "provenance": "Non-Compete hard negatives N2, N3, N4 (labeled No-Solicit Of Employees)", "rationale": "Hiring/solicitation clauses are a different category", "intended_behavior": "Subtracts 1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+      ]
+    },
+    "Cap On Liability": {
+      "groups": [
+        {
+          "group_id": "CL-G1",
+          "role": "anchor",
+          "name": "ceiling on the amount",
+          "rules": [
+            {"rule_id": "CL-G1-04", "phrase": "aggregate liability", "source_type": "train_span", "provenance": "Uncapped train spans P1, P5 ('aggregate total liability', 'aggregate liability')", "rationale": "Names the capped amount", "intended_behavior": "Fires on 'aggregate liability of either party'", "reviewer": null},
+            {"rule_id": "CL-G1-05", "phrase": "total liability", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P2): precision 1.00, 14 spans", "rationale": "Liability-specific cap wording", "intended_behavior": "Fires on 'total liability shall not exceed the fees paid'", "reviewer": null},
+            {"rule_id": "CL-G1-06", "phrase": "exceed the total", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P2): precision 1.00, 4 spans", "rationale": "Liability-specific cap wording", "intended_behavior": "Fires on 'total liability shall not exceed the fees paid'", "reviewer": null},
+            {"rule_id": "CL-G1-07", "phrase": "liability shall not exceed", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P2): precision 1.00, 2 spans", "rationale": "Liability-specific cap wording", "intended_behavior": "Fires on 'total liability shall not exceed the fees paid'", "reviewer": null},
+            {"rule_id": "CL-G1-08", "phrase": "maximum liability", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P2): precision 0.79, 7 spans", "rationale": "Liability-specific cap wording", "intended_behavior": "Fires on 'total liability shall not exceed the fees paid'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "CL-G5",
+          "role": "support",
+          "name": "exceed wording (not liability-specific)",
+          "rules": [
+            {"rule_id": "CL-G1-01", "phrase": "shall not exceed", "source_type": "train_span", "provenance": "Cap On Liability train span P5 ('liability ... exceed the amounts paid'); Uncapped P1, P5 | Train audit 2026-10-16 (approved P3): demoted to support; precision 0.36, fee-cap false positives", "rationale": "Core cap wording; also appears in non-liability sentences, so threshold must decide", "intended_behavior": "Fires on 'liability shall not exceed the amounts paid'", "reviewer": null},
+            {"rule_id": "CL-G1-02", "phrase": "will not exceed", "source_type": "drafting_variant", "provenance": "Variant of CL-G1-01 | Train audit 2026-10-16 (approved P3): demoted to support; precision 0.39", "rationale": "Same idea with 'will'", "intended_behavior": "Fires on 'liability will not exceed'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "CL-G2",
+          "role": "support",
+          "name": "damages-exclusion wording",
+          "rules": [
+            {"rule_id": "CL-G2-01", "phrase": "consequential", "source_type": "train_span", "provenance": "Cap On Liability train spans P1, P4; Uncapped hard negatives N1-N5 | Train audit 2026-10-16 (approved P2): demoted anchor->support; alone gave 91 FP among 199 chunks", "rationale": "CUAD labels 'no consequential damages' clauses as Cap On Liability; substring also catches 'consequential damages'", "intended_behavior": "Fires on 'neither party shall be liable for any special, consequential or incidental damages'", "reviewer": null},
+            {"rule_id": "CL-G2-02", "phrase": "punitive", "source_type": "train_span", "provenance": "Cap On Liability train span P4 ('PUNITIVE, EXEMPLARY, TREBLE') | Train audit 2026-10-16 (approved P2): demoted anchor->support; alone gave 91 FP among 199 chunks", "rationale": "Same kind of damages exclusion", "intended_behavior": "Fires on 'punitive damages'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "CL-G3",
+          "role": "support",
+          "name": "no-liability wording",
+          "rules": [
+            {"rule_id": "CL-G3-01", "phrase": "in no event", "source_type": "train_span", "provenance": "Cap On Liability train span P5; Uncapped hard negatives N1-N3, N5", "rationale": "Typical opening of a limitation clause", "intended_behavior": "Adds +1", "reviewer": null},
+            {"rule_id": "CL-G3-02", "phrase": "neither party shall be liable", "source_type": "train_span", "provenance": "Cap On Liability train spans P1, P4", "rationale": "Typical limitation wording", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "CL-G6",
+          "role": "support",
+          "name": "limitation heading",
+          "rules": [
+            {"rule_id": "CL-G6-01", "phrase": "limitation of liability", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P2): precision 0.70, 264 positive chunks", "rationale": "Section heading/phrase that usually introduces a cap", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "CL-G4",
+          "role": "counter",
+          "name": "limitation does not apply (uncapped carve-out)",
+          "rules": [
+            {"rule_id": "CL-G4-01", "phrase": "shall not apply", "source_type": "hard_negative_review", "provenance": "Cap On Liability hard negatives N1, N3 (labeled Uncapped Liability)", "rationale": "The clause removes the cap, which is Uncapped Liability", "intended_behavior": "Subtracts 1", "reviewer": null},
+            {"rule_id": "CL-G4-02", "phrase": "inapplicable", "source_type": "hard_negative_review", "provenance": "Cap On Liability hard negative N4 ('SHALL BE INAPPLICABLE TO')", "rationale": "Same as CL-G4-01", "intended_behavior": "Subtracts 1", "reviewer": null},
+            {"rule_id": "CL-G4-03", "phrase": "nothing in this section", "source_type": "hard_negative_review", "provenance": "Cap On Liability hard negatives N2, N5", "rationale": "Same as CL-G4-01", "intended_behavior": "Subtracts 1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+      ]
+    },
+    "Uncapped Liability": {
+      "groups": [
+        {
+          "group_id": "UL-G2",
+          "role": "anchor",
+          "name": "explicitly unlimited",
+          "rules": [
+            {"rule_id": "UL-G2-01", "phrase": "unlimited liability", "source_type": "drafting_variant", "provenance": "Category name 'Uncapped Liability'; not seen in the 5 samples", "rationale": "Direct wording", "intended_behavior": "Fires on 'shall have unlimited liability for'", "reviewer": null},
+            {"rule_id": "UL-G2-02", "phrase": "uncapped", "source_type": "drafting_variant", "provenance": "Category name 'Uncapped Liability'; not seen in the 5 samples", "rationale": "Direct wording", "intended_behavior": "Fires on 'shall be uncapped'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "UL-G5",
+          "role": "anchor",
+          "name": "carve-out for serious misconduct",
+          "rules": [
+            {"rule_id": "UL-G5-01", "phrase": "gross negligence or willful", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P7): precision 0.28, 11 spans (best available)", "rationale": "Carve-outs from a cap are how Uncapped Liability is usually written", "intended_behavior": "Fires on 'except for gross negligence or willful misconduct'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "UL-G3",
+          "role": "support",
+          "name": "typical exceptions",
+          "rules": [
+            {"rule_id": "UL-G3-01", "phrase": "gross negligence", "source_type": "train_span", "provenance": "Uncapped train span P2; Cap hard negatives N1, N3", "rationale": "Usual carve-out from a cap", "intended_behavior": "Adds +1", "reviewer": null},
+            {"rule_id": "UL-G3-02", "phrase": "willful misconduct", "source_type": "train_span", "provenance": "Uncapped train span P2; Cap hard negatives N1, N3", "rationale": "Usual carve-out from a cap", "intended_behavior": "Adds +1", "reviewer": null},
+            {"rule_id": "UL-G3-03", "phrase": "indemnification obligations", "source_type": "train_span", "provenance": "Uncapped train spans P1, P2, P3; Cap hard negative N1", "rationale": "Usual carve-out from a cap", "intended_behavior": "Adds +1", "reviewer": null},
+            {"rule_id": "UL-G3-04", "phrase": "no limitation", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P7): precision 1.00, only 3 positive chunks (low support)", "rationale": "Explicit statement that liability is not limited", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "UL-G4",
+          "role": "counter",
+          "name": "ordinary cap with generic exception",
+          "rules": [
+            {"rule_id": "UL-G4-01", "phrase": "except as otherwise expressly set forth", "source_type": "hard_negative_review", "provenance": "Uncapped Liability hard negative N5 (labeled Cap On Liability)", "rationale": "A generic 'except as' does not make the liability uncapped", "intended_behavior": "Subtracts 1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+      ]
+    },
+    "Anti-Assignment": {
+      "groups": [
+        {
+          "group_id": "AA-G1",
+          "role": "anchor",
+          "name": "prohibition on assigning",
+          "rules": [
+            {"rule_id": "AA-G1-01", "phrase": "may not assign", "source_type": "drafting_variant", "provenance": "Phase 2 observation (INFERRED): positives pair a prohibition with consent; to be checked on train in Phase 5", "rationale": "Core prohibition wording", "intended_behavior": "Fires on 'may not assign this Agreement without prior written consent'", "reviewer": null},
+            {"rule_id": "AA-G1-02", "phrase": "shall not assign", "source_type": "drafting_variant", "provenance": "Variant of AA-G1-01", "rationale": "Same idea with 'shall'", "intended_behavior": "Fires on 'shall not assign'", "reviewer": null},
+            {"rule_id": "AA-G1-03", "phrase": "may not be assigned", "source_type": "drafting_variant", "provenance": "Passive variant of AA-G1-01", "rationale": "Passive wording", "intended_behavior": "Fires on 'this Agreement may not be assigned'", "reviewer": null},
+            {"rule_id": "AA-G1-04", "phrase": "shall not be assigned", "source_type": "drafting_variant", "provenance": "Passive variant of AA-G1-02", "rationale": "Passive wording", "intended_behavior": "Fires on 'shall not be assigned'", "reviewer": null},
+            {"rule_id": "AA-G1-05", "phrase": "not assign", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P5): precision 0.93, 47 spans", "rationale": "Generalizes may/shall-not forms (will not assign, etc.)", "intended_behavior": "Fires on 'will not assign'", "reviewer": null},
+            {"rule_id": "AA-G1-06", "phrase": "not be assigned", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P5): precision 0.89, 37 spans", "rationale": "Generalizes may/shall-not forms (will not assign, etc.)", "intended_behavior": "Fires on 'will not assign'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "AA-G2",
+          "role": "support",
+          "name": "consent wording (generic)",
+          "rules": [
+            {"rule_id": "AA-G2-01", "phrase": "without the prior written consent", "source_type": "drafting_variant", "provenance": "Phase 2 observation (INFERRED); to be checked on train in Phase 5 | Train audit 2026-10-16 (approved P5): demoted anchor->support; 449 FP chunks, precision 0.46", "rationale": "The consent half of an anti-assignment clause", "intended_behavior": "Fires on 'without the prior written consent of the other party'", "reviewer": null},
+            {"rule_id": "AA-G2-02", "phrase": "without prior written consent", "source_type": "drafting_variant", "provenance": "Variant of AA-G2-01 without 'the' | Train audit 2026-10-16 (approved P5): demoted anchor->support; 449 FP chunks, precision 0.46", "rationale": "Same idea", "intended_behavior": "Fires on 'without prior written consent'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "AA-G6",
+          "role": "anchor",
+          "name": "unconsented assignment is void",
+          "rules": [
+            {"rule_id": "AA-G6-01", "phrase": "without such consent", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P5): precision 1.00, 14 spans", "rationale": "Consequence-of-assignment wording", "intended_behavior": "Fires on 'any assignment without such consent'", "reviewer": null},
+            {"rule_id": "AA-G6-02", "phrase": "purported assignment", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P5): precision 1.00, 11 spans", "rationale": "Same", "intended_behavior": "Fires on 'any purported assignment'", "reviewer": null},
+            {"rule_id": "AA-G6-03", "phrase": "shall be void", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P5): precision 0.84, 27 spans", "rationale": "Same", "intended_behavior": "Fires on 'shall be null and void' style text only where 'shall be void'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "AA-G3",
+          "role": "support",
+          "name": "other forms of moving the contract",
+          "rules": [
+            {"rule_id": "AA-G3-01", "phrase": "transfer", "source_type": "drafting_variant", "provenance": "Phase 2 observation: annotators labeled looser transfer language too", "rationale": "Weak: appears in many unrelated clauses", "intended_behavior": "Adds +1", "reviewer": null},
+            {"rule_id": "AA-G3-02", "phrase": "delegate", "source_type": "drafting_variant", "provenance": "Phase 2 observation (INFERRED)", "rationale": "Weak support", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "AA-G4",
+          "role": "counter",
+          "name": "IP assignment",
+          "rules": [
+            {"rule_id": "AA-G4-01", "phrase": "right, title and interest", "source_type": "drafting_variant", "provenance": "Spec confusion case: Anti-Assignment vs IP assignment; not verified on train", "rationale": "Ownership transfer of IP is a different clause", "intended_behavior": "Subtracts 1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+      ]
+    },
+    "Change Of Control": {
+      "groups": [
+        {
+          "group_id": "CC-G1",
+          "role": "anchor",
+          "name": "change of control wording",
+          "rules": [
+            {"rule_id": "CC-G1-01", "phrase": "change of control", "source_type": "drafting_variant", "provenance": "Category name 'Change Of Control' (CUAD category description)", "rationale": "Literal wording", "intended_behavior": "Fires on 'upon a change of control of either party'", "reviewer": null},
+            {"rule_id": "CC-G1-02", "phrase": "change in control", "source_type": "drafting_variant", "provenance": "Phase 2 observation (INFERRED): positives use this wording", "rationale": "Variant wording", "intended_behavior": "Fires on 'a change in control'", "reviewer": null},
+            {"rule_id": "CC-G1-03", "phrase": "change-of-control", "source_type": "drafting_variant", "provenance": "Hyphenated variant", "rationale": "Variant wording", "intended_behavior": "Fires on 'change-of-control provision'", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "CC-G2",
+          "role": "support",
+          "name": "ownership-change wording",
+          "rules": [
+            {"rule_id": "CC-G2-01", "phrase": "voting securities", "source_type": "drafting_variant", "provenance": "Phase 2 observation (INFERRED): positives mention equity acquired | Train audit 2026-10-16 (approved P6): demoted anchor->support; precision 0.11/0.38", "rationale": "How control is defined", "intended_behavior": "Fires on 'acquires more than 50% of the voting securities'", "reviewer": null},
+            {"rule_id": "CC-G2-02", "phrase": "controlling interest", "source_type": "drafting_variant", "provenance": "Phase 2 observation (INFERRED) | Train audit 2026-10-16 (approved P6): demoted anchor->support; precision 0.11/0.38", "rationale": "How control is defined", "intended_behavior": "Fires on 'acquires a controlling interest'", "reviewer": null},
+            {"rule_id": "CC-G2-03", "phrase": "merges with", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P6): precision 0.73, only 3 spans (low support)", "rationale": "Ownership-change wording", "intended_behavior": "Adds +1", "reviewer": null},
+            {"rule_id": "CC-G2-04", "phrase": "change in ownership", "source_type": "train_span", "provenance": "Train audit 2026-10-16 (approved P6): precision 1.00, only 1 span (low support)", "rationale": "Ownership-change wording", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        },
+        {
+          "group_id": "CC-G3",
+          "role": "support",
+          "name": "triggering transaction",
+          "rules": [
+            {"rule_id": "CC-G3-01", "phrase": "merger", "source_type": "drafting_variant", "provenance": "Phase 2 observation: trigger is merger, consolidation, equity acquired", "rationale": "Weak: also appears in entire-agreement ('merger') clauses", "intended_behavior": "Adds +1", "reviewer": null},
+            {"rule_id": "CC-G3-02", "phrase": "consolidation", "source_type": "drafting_variant", "provenance": "Phase 2 observation (INFERRED)", "rationale": "Trigger wording", "intended_behavior": "Adds +1", "reviewer": null},
+            {"rule_id": "CC-G3-03", "phrase": "substantially all", "source_type": "drafting_variant", "provenance": "Anti-Assignment hard negatives N2, N4 ('substantially all assets')", "rationale": "Weak: sale of substantially all assets", "intended_behavior": "Adds +1", "reviewer": null}
+          ]
+        }
+      ],
+      "vetoes": [
+      ]
+    }
+  }
+}
