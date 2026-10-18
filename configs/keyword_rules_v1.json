@@ -12,7 +12,8 @@
     "2026-10-16: Non-Transferable License decision-table review, approved by Mahir: N1 added NT-G1-04/05/06 (non-transferrable, not transferable, not be transferable); N2 added NT-G2-03/04 (non- assignable, nonassignable); N3 added anchor group NT-G5 (sublicense restriction). No retirements; NT-G4-01 kept (0 train occurrences). Train-only evidence, sim F1 .783 -> .817; see reports/keyword_baseline/decision_tables/non_transferable_license.md.",
     "2026-10-16 Non-Compete decision table (approved K1-K6): retired counter NC-G4-01 'solicit' (precision .12, below base rate .032); added support groups NC-G6 (competitive with/to, competitive/competing product(s), competing business), NC-G7 (competitor(s)), NC-G8 (in competition, own/manage, named competitor(s); low support), NC-G9 (not market/promote/endorse), NC-G10 (any/a competitor). Train sim F1 .332 -> .497 (optimistic; thresholds chosen later on validation).",
     "2026-10-16 Exclusivity decision table (approved X1-X4): retired anchor EX-G2-01 'exclusively' (precision .20), re-added as support EX-G4-01; added anchors EX-G1-03 'an exclusive', EX-G1-04 'exclusivity', EX-G1-05 'exclusively from'; added support EX-G5-01 'exclusive' with vetoes EX-V4..V6 (non-exclusive spellings). Kept EX-V1..V3 (removing them drops F1 .533 -> .506). Train sim F1 .306 -> .533 (optimistic; thresholds chosen later on validation).",
-    "2026-10-18 Expiration Date decision table (approved D1-D6): retired counters ED-G4-01 'automatically renew' (precision .89) and ED-G5-01 'effective as of'; retired anchors ED-G1-01 'term of this agreement' (-> support ED-G6-01), ED-G2-02 'expiration date' and ED-G2-03 'termination date' (-> support ED-G10); added anchor groups ED-G7 (commencement) and ED-G8 (early-termination qualifier) and support group ED-G9 (continuation). Train sim F1 .326 -> .719 (applied rules; the table's .727 also demoted ED-G1-02/03) (optimistic; thresholds chosen later on validation)."
+    "2026-10-18 Expiration Date decision table (approved D1-D6): retired counters ED-G4-01 'automatically renew' (precision .89) and ED-G5-01 'effective as of'; retired anchors ED-G1-01 'term of this agreement' (-> support ED-G6-01), ED-G2-02 'expiration date' and ED-G2-03 'termination date' (-> support ED-G10); added anchor groups ED-G7 (commencement) and ED-G8 (early-termination qualifier) and support group ED-G9 (continuation). Train sim F1 .326 -> .719 (applied rules; the table's .727 also demoted ED-G1-02/03) (optimistic; thresholds chosen later on validation).",
+    "2026-10-18 Expiration Date follow-up (approved D7): retired anchors ED-G1-02 'remain in effect' and ED-G1-03 'in effect until'; re-added as support ED-G11-01/02. Corrects the earlier .727 figure: applied D1-D6 gave .719, D7 gives .729 (train sim, optimistic)."
   ],
   "categories": {
     "Renewal Term": {
@@ -221,31 +222,6 @@
     },
     "Expiration Date": {
       "groups": [
-        {
-          "group_id": "ED-G1",
-          "role": "anchor",
-          "name": "how long the agreement lasts",
-          "rules": [
-            {
-              "rule_id": "ED-G1-02",
-              "phrase": "remain in effect",
-              "source_type": "train_span",
-              "provenance": "Expiration Date train spans P2, P4 ('will remain in effect')",
-              "rationale": "Duration wording without the word 'term'",
-              "intended_behavior": "Fires on 'shall remain in effect until...'",
-              "reviewer": null
-            },
-            {
-              "rule_id": "ED-G1-03",
-              "phrase": "in effect until",
-              "source_type": "train_span",
-              "provenance": "Expiration Date train span P1 ('in effect until March 18')",
-              "rationale": "States an end date directly",
-              "intended_behavior": "Fires on 'shall be in effect until March 18, 2021'",
-              "reviewer": null
-            }
-          ]
-        },
         {
           "group_id": "ED-G2",
           "role": "anchor",
@@ -470,6 +446,31 @@
               "source_type": "train_span",
               "provenance": "Decision-table review 2026-10-18 (approved D6): 52 TP / 180 FP chunks",
               "rationale": "Demoted from anchors ED-G2-02/03 (precision .24/.22)",
+              "intended_behavior": "Adds +1",
+              "reviewer": null
+            }
+          ]
+        },
+        {
+          "group_id": "ED-G11",
+          "role": "support",
+          "name": "stays in effect",
+          "rules": [
+            {
+              "rule_id": "ED-G11-01",
+              "phrase": "remain in effect",
+              "source_type": "train_span",
+              "provenance": "Decision-table review 2026-10-18 (approved D7): demoted from anchor ED-G1-02; chunk precision .36 / .54",
+              "rationale": "Duration wording without the word 'term'",
+              "intended_behavior": "Adds +1",
+              "reviewer": null
+            },
+            {
+              "rule_id": "ED-G11-02",
+              "phrase": "in effect until",
+              "source_type": "train_span",
+              "provenance": "Decision-table review 2026-10-18 (approved D7): demoted from anchor ED-G1-03; chunk precision .36 / .54",
+              "rationale": "States an end date directly",
               "intended_behavior": "Adds +1",
               "reviewer": null
             }
