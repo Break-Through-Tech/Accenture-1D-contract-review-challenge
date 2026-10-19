@@ -1,7 +1,7 @@
 # Decision table: Expiration Date
 
 Rule set: `configs/keyword_rules_v1.json` (DRAFT, not frozen). Evidence: the 326 train contracts only (`data/splits/train.json`, `data/gate3/train_*_768_512.csv`, `data/cuad/gate2_excerpt_review.csv`; all gate-2 titles checked to be in train). No validation or test data used; `train_separate_questions.json` not opened.
-Status: **APPROVED and APPLIED 2026-10-18 (D1-D6 all approved by Mahir).** Rule file now 184 IDs. **Correction after applying:** the scorer on the applied rules gives train sim F1 **.719** (th 3; 470 TP / 128 FP / 240 FN), not .727. The scratch harness behind sections 8-9 demoted the whole ED-G1 group, which also turned ED-G1-02 "remain in effect" and ED-G1-03 "in effect until" into support; the proposed D2 only moved ED-G1-01. All sim figures in sections 8-10 (F1 .727, cumulative and leave-one-out values) carry that extra demotion and are about .01 high. **D7 (approved by Mahir, APPLIED 2026-10-18):** retired ED-G1-02/03 anchors and re-added them as support ED-G11-01/02, giving the scorer's **.729** (th 3; 465 TP / 101 FP / 245 FN); dropping either alone gives .717 / .720. Applied-rules F1 is therefore .729.
+Status: **APPROVED and APPLIED 2026-10-18 (D1-D7, all approved by Mahir).** Rule file now 184 IDs; the scorer on the applied rules reproduces train sim F1 **.729** (th 3; 465 TP / 101 FP / 245 FN). D7 was added after the first version of this table (an earlier draft quoted .727 because its harness had demoted ED-G1-02/03 together with D2; sections 8-10 were recomputed from the applied rules on 2026-10-18).
 Claim labels: **VERIFIED** = seen in a cited source or scratch run on train; **INFERRED** = hypothesis.
 
 ## 1. Inclusion meaning
@@ -53,13 +53,13 @@ Each group counts at most once per chunk. Anchor +2, support +1, counter -1, flo
 
 Plus, after the edits: ED-G6 (support, "term of this agreement", moved from ED-G1-01) and ED-G10 (support, "expiration date", "termination date", moved from ED-G2-02/03).
 
-Maximum score now: anchors ED-G1, ED-G2 (2 each) + support ED-G3 (1) = 5. After D1-D6: anchors ED-G1 (remain in effect / in effect until), ED-G2 (shall expire), ED-G7, ED-G8 (2 each) + supports ED-G3, ED-G6, ED-G9, ED-G10 (1 each) = **12**.
+Maximum score now: anchors ED-G1, ED-G2 (2 each) + support ED-G3 (1) = 5. After D1-D7: anchors ED-G2 (shall expire), ED-G7, ED-G8 (2 each) + supports ED-G3, ED-G6, ED-G9, ED-G10, ED-G11 (1 each) = **11**.
 
 The two reasons the current set does poorly (**VERIFIED**): "term of this agreement" is the anchor for 94 spans but also fires in 1,281 negative chunks (precision .20, 2.7x the 7.3% base rate), so the category fires on nearly every contract's term sentence or heading. And the two counters are wrong-way round: "automatically renew" is in 110 positive and only 14 negative chunks (precision .89), because a chunk that has a renewal sentence usually has the term sentence next to it. The 37% overlap with Renewal Term (section 5) is why.
 
 ## 3. Counterevidence and vetoes
 
-- **ED-G4-01 "automatically renew" (counter): retire (D1).** 110 TP / 14 FP chunks. It subtracts 1 from 110 real positives, to remove 14 false positives at most. Leave-one-out F1 with it retained: .698 vs .727 (all edits, minus D1).
+- **ED-G4-01 "automatically renew" (counter): retire (D1).** 110 TP / 14 FP chunks. It subtracts 1 from 110 real positives, to remove 14 false positives at most. Leave-one-out F1 with it retained: .700 vs .729 (all edits, minus D1).
 - **ED-G5-01 "effective as of" (counter): retire (D1).** 93 TP / 222 FP chunks (precision .30, above the 7.3% base rate), so it is not counterevidence. It is also an Effective Date phrase, but those chunks often include the end of the term in the next sentence. Removing it alone is worth +.002; D1 as a pair is +.016.
 - **No vetoes** exist or are proposed.
 - **No new counters proposed.** The greedy search over train phrases found no counter that helped; the hard-negative neighbours in section 5b are the same paragraph as a real clause, so a counter would also remove true positives (INFERRED from 5a).
@@ -84,7 +84,7 @@ None proposed (the engine is plain substring + group max). A limit such as "with
 
 Honest reading: the edits raise four of the five hard negatives; by excerpt, four of the five reach 3 or more (5, 4, 2, 4, 4: Pareteum stays at 2). These are the same paragraph as a real Expiration Date clause (Renewal Term and Notice Period spans sit beside "unless earlier terminated"), so the baseline will report them as false positives against the gate-2 labels. They are the expected cost of a keyword baseline here (**INFERRED**); do not add a counter for "automatically renew" to fix them (section 3).
 
-**5c. Other overlaps (VERIFIED).** At threshold 3 the 99 false positives by co-label: License Grant 16, Non-Transferable License 10, Renewal Term 9, Anti-Assignment 8, Cap On Liability 6, Exclusivity 5, Non-Compete 3, Uncapped Liability 1 (most FPs are neither: the sentence about "the term" in boilerplate).
+**5c. Other overlaps (VERIFIED).** At threshold 3 the 101 false positives by co-label: License Grant 16, Non-Transferable License 10, Renewal Term 9, Anti-Assignment 8, Cap On Liability 6, Exclusivity 5, Non-Compete 3, Uncapped Liability 1 (most FPs are neither: the sentence about "the term" in boilerplate).
 
 ## 6. Known near-misses and exclusions
 
@@ -94,7 +94,7 @@ Honest reading: the edits raise four of the five hard negatives; by excerpt, fou
 
 ## 7. Known weak spots (be honest in the write-up)
 
-- 107 of the 302 spans (35%) still have no anchor after the edits. They are short fragments ("5 years.", "Term means the period commencing ... indefinitely") or definitions. INFERRED ceiling for a keyword baseline: recall about .65 at threshold 3.
+- 112 of the 302 spans (37%) still have no anchor after the edits. They are short fragments ("5 years.", "Term means the period commencing ... indefinitely") or definitions. INFERRED ceiling for a keyword baseline: recall about .65 at threshold 3.
 - Precision at threshold 3 is good (.82) because D3 and D4 are reliable, but "shall continue" (237 / 498) and "shall commence" (180 / 97) are noisy on their own and only help in combination.
 - Hard negatives in section 5b rise, as expected.
 
@@ -106,39 +106,41 @@ Scratch scorer: `sim.score` (group max). Best threshold over 1-8 on unmasked tra
 |---|---|---|---|---|---|
 | Current | .326 | 1 | 474 | 1,727 | 236 |
 | D1 | .342 | 1 | 503 | 1,731 | 207 |
-| D1+D2 | .342 | 1 | 503 | 1,731 | 207 |
-| D1-D3 | .527 | 2 | 435 | 505 | 275 |
-| D1-D4 | .688 | 3 | 423 | 97 | 287 |
-| D1-D5 | .706 | 3 | 467 | 146 | 243 |
-| D1-D6 (all) | **.727** | 3 | 462 | 99 | 248 |
+| D1-D2 | .360 | 2 | 258 | 465 | 452 |
+| D1-D3 | .526 | 2 | 463 | 589 | 247 |
+| D1-D4 | .686 | 3 | 431 | 115 | 279 |
+| D1-D5 | .700 | 3 | 474 | 171 | 236 |
+| D1-D6 | .719 | 3 | 470 | 128 | 240 |
+| D1-D7 (all) | **.729** | 3 | 465 | 101 | 245 |
 
-Leave-one-out (all minus one): D1 .698, D2 .684, D3 .630, D4 .592, D5 .701, D6 .706. Only that one: D3 .489, D4 .495, D5 .357, D1 .342, D6 .320, D2 .303 (D2 lowers F1 alone because it removes an anchor, but is needed once D3-D4 raise the threshold).
+Leave-one-out (all minus one): D1 .700, D2 .679, D3 .627, D4 .593, D5 .701, D6 .708, D7 .719. Only that one: D3 .489, D4 .495, D5 .357, D1 .342, D6 .320, D7 .323, D2 .311 (D2 lowers F1 alone because it removes an anchor, but is needed once D3-D4 raise the threshold).
 
-Final operating points on train chunks: threshold 2 precision .57 / recall .76; threshold 3 precision .82 / recall .65; threshold 4 precision .91 / recall .47. Spans with at least one anchor go from 131 to 195 of 302.
+Final operating points on train chunks: threshold 2 precision .56 / recall .76; threshold 3 precision .82 / recall .65; threshold 4 precision .91 / recall .47. Spans with at least one anchor go from 131 to 190 of 302 (anchors counted after the edits: "shall expire", ED-G7, ED-G8).
 
-Not proposed: removing "term of this agreement" outright (.618, worse than demoting it, because it still adds +1 for real clauses); "years" as support (+.001); "automatically" as support (+.012, but it is renewal wording and would blur the two categories; **optional**, Mahir's call).
+Not proposed (all measured on the applied rules, .729): removing "term of this agreement" outright (.697, worse than keeping it as support); "years" as support (+.004, .733); "automatically" as support (+.012, .741, but it is renewal wording and would blur the two categories; **declined**, Mahir's call).
 
-## 9. Proposed rule edits (NOT applied; need Mahir's OK)
+## 9. Rule edits (APPLIED 2026-10-18)
 
-IDs follow the existing convention (`ED-Gn-mm`); "D1..D6" are edit numbers. Retired IDs are never reused.
+IDs follow the existing convention (`ED-Gn-mm`); "D1..D7" are edit numbers. Retired IDs are never reused.
 
 | ID | Change | Train evidence | Why | Sim F1 |
 |---|---|---|---|---|
 | D1 | **Retire ED-G4-01 "automatically renew" and ED-G5-01 "effective as of"** (both counters; IDs never reused). ED-G4 and ED-G5 become empty | 110 / 14 and 93 / 222 chunks (precision .89 and .30 vs base rate .073) | Both subtract from real positives (section 3, 5a) | .326 to .342 |
-| D2 | **Retire anchor ED-G1-01 "term of this agreement"**; re-add it as support, new group **ED-G6**, ED-G6-01 | 318 TP / 1,281 FP chunks (precision .20); 94 spans | As an anchor it fires on every term heading. Alone it changes nothing; it is needed once D3-D4 are in (without it the final F1 is .684) | .342 to .342 |
-| D3 | New anchor group **ED-G7** "commencement": ED-G7-01 "commence on", -02 "shall commence", -03 "begin on", -04 "effective date and shall", -05 "effective date and will" | union 329 / 138 chunks; strongest "effective date and shall" 120 / 7; spans 63, 65, 24, 44, 10 | The usual wording of a term clause ("shall commence on the Effective Date and continue ... five years") | .342 to .527 |
-| D4 | New anchor group **ED-G8** "early-termination qualifier": ED-G8-01 "unless earlier terminated", -02 "unless sooner terminated", -03 "earlier terminated", -04 "terminated earlier", -05 "unless terminated", -06 "until terminated" | union 335 / 62 chunks (precision .84); spans 35, 15, 40, 27, 42, 16 | "Unless earlier terminated, this Agreement ..." says the term has an end | .527 to .688 (threshold 3) |
-| D5 | New support group **ED-G9** "continuation": ED-G9-01 "continue in effect", -02 "shall continue", -03 "initial period", -04 "for an initial" | union 280 / 521 chunks (precision .35); "for an initial" 35 / 3 | Partial credit for the duration wording | .688 to .706 |
-| D6 | **Retire anchors ED-G2-02 "expiration date" and ED-G2-03 "termination date"**; re-add as support, new group **ED-G10**, ED-G10-01 "expiration date", -02 "termination date" | 32 / 104 and 52 / 180 chunks (precision .24 and .22) | Below the anchor bar; still useful as +1 | .706 to .727 (threshold 3) |
-| no edit | Keep ED-G1-02/03, ED-G2-01, ED-G3-01 | section 8 | Load-bearing; "remain in effect" / "in effect until" precision .36 / .54, "shall expire" .49, "initial term" .53 | |
+| D2 | **Retire anchor ED-G1-01 "term of this agreement"**; re-add it as support, new group **ED-G6**, ED-G6-01 | 318 TP / 1,281 FP chunks (precision .20); 94 spans | As an anchor it fires on every term heading. After D1 it lifts F1 only to .360 (threshold 2) and alone it lowers F1 (.311); it is needed once D3-D4 are in (without it the final F1 is .679) | .342 to .360 |
+| D3 | New anchor group **ED-G7** "commencement": ED-G7-01 "commence on", -02 "shall commence", -03 "begin on", -04 "effective date and shall", -05 "effective date and will" | union 329 / 138 chunks; strongest "effective date and shall" 120 / 7; spans 63, 65, 24, 44, 10 | The usual wording of a term clause ("shall commence on the Effective Date and continue ... five years") | .360 to .526 |
+| D4 | New anchor group **ED-G8** "early-termination qualifier": ED-G8-01 "unless earlier terminated", -02 "unless sooner terminated", -03 "earlier terminated", -04 "terminated earlier", -05 "unless terminated", -06 "until terminated" | union 335 / 62 chunks (precision .84); spans 35, 15, 40, 27, 42, 16 | "Unless earlier terminated, this Agreement ..." says the term has an end | .526 to .686 (threshold 3) |
+| D5 | New support group **ED-G9** "continuation": ED-G9-01 "continue in effect", -02 "shall continue", -03 "initial period", -04 "for an initial" | union 280 / 521 chunks (precision .35); "for an initial" 35 / 3 | Partial credit for the duration wording | .686 to .700 |
+| D6 | **Retire anchors ED-G2-02 "expiration date" and ED-G2-03 "termination date"**; re-add as support, new group **ED-G10**, ED-G10-01 "expiration date", -02 "termination date" | 32 / 104 and 52 / 180 chunks (precision .24 and .22) | Below the anchor bar; still useful as +1 | .700 to .719 (threshold 3) |
+| D7 | **Retire anchors ED-G1-02 "remain in effect" and ED-G1-03 "in effect until"**; re-add as support, new group **ED-G11**, ED-G11-01 / -02 | 47 / 83 and 31 / 26 chunks (precision .36 and .54) | Below the anchor bar once D3-D4 supply the real anchors; added after the first draft of this table | .719 to .729 (threshold 3) |
+| no edit | Keep ED-G2-01, ED-G3-01 | section 8 | Load-bearing; "shall expire" precision .49, "initial term" .53 | |
 
-Net ID change if all approved: 5 retired, 18 added (1 + 5 + 6 + 4 + 2), rule file 171 to 184.
+Net ID change: 7 retired (ED-G1-01/02/03, ED-G2-02/03, ED-G4-01, ED-G5-01), 20 added (1 + 5 + 6 + 4 + 2 + 2), rule file 171 to 184.
 
-If D6 is declined, .706. If D5 is declined, .701. D2 should go with D3 and D4. D1 can be taken or dropped separately (.698 without it).
+As approved: all of D1-D7. Leave-one-out values are in section 8.
 
 ## 10. Examples that exercise each branch
 
-Scores from the scratch scorer (**VERIFIED** by running it). "Now" = current rules; "After" = D1-D6. Span rows score the span text; G2 rows score the gate-2 span (the excerpt number is in section 5b for hard negatives).
+Scores from the scratch scorer (**VERIFIED** by running it). "Now" = current rules; "After" = D1-D7. Span rows score the span text; G2 rows score the gate-2 span (the excerpt number is in section 5b for hard negatives).
 
 | ID | Branch | Source | Text (shortened) | Now | After |
 |---|---|---|---|---|---|
