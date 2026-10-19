@@ -39,6 +39,23 @@ def metrics(tp, fp, fn, tn):
     return p, r, f
 
 
+def search_thresholds(g, max_score):
+    """Try every integer threshold 1..max_score; return per-threshold rows and the best (key, th, tp, fp, fn, tn)."""
+    rows, best = [], None
+    for th in range(1, max_score + 1):
+        tp, fp, fn, tn = counts(g, th)
+        p, r, f = metrics(tp, fp, fn, tn)
+        rows.append({"threshold": th, "tp": tp, "fp": fp, "fn": fn, "tn": tn, "precision": p, "recall": r, "f1": f})
+        key = (Fraction(2 * tp, 2 * tp + fp + fn) if 2 * tp + fp + fn else Fraction(0), Fraction(tp, tp + fn) if tp + fn else Fraction(0), -th)
+        if best is None or key > best[0]:
+            best = (key, th, tp, fp, fn, tn)
+    return rows, best
+
+
+def max_possible_score(category_rules):
+    return sum(2 if g["role"] == "anchor" else 1 if g["role"] == "support" else 0 for g in category_rules["groups"])
+
+
 def main():
     rules = json.load(open(RULES))
     pred = pd.read_csv(PRED)
@@ -50,17 +67,11 @@ def main():
 
     search, final, chosen = [], [], {}
     for cat, c in rules["categories"].items():
-        max_score = sum(2 if g["role"] == "anchor" else 1 if g["role"] == "support" else 0 for g in c["groups"])
+        max_score = max_possible_score(c)
         g = unmasked[unmasked.category == cat]
-        best = None
-        for th in range(1, max_score + 1):
-            tp, fp, fn, tn = counts(g, th)
-            p, r, f = metrics(tp, fp, fn, tn)
-            search.append({"category": cat, "threshold": th, "tp": tp, "fp": fp, "fn": fn, "tn": tn,
-                           "precision": p, "recall": r, "f1": f})
-            key = (Fraction(2 * tp, 2 * tp + fp + fn) if 2 * tp + fp + fn else Fraction(0), Fraction(tp, tp + fn) if tp + fn else Fraction(0), -th)
-            if best is None or key > best[0]:
-                best = (key, th, tp, fp, fn, tn)
+        rows, best = search_thresholds(g, max_score)
+        for r_ in rows:
+            search.append({"category": cat, **r_})
         _, th, tp, fp, fn, tn = best
         p, r, f = metrics(tp, fp, fn, tn)
         n_pos = tp + fn
