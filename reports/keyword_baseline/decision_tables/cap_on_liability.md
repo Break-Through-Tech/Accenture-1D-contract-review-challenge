@@ -1,7 +1,7 @@
 # Decision table: Cap On Liability
 
-Rule set: `configs/keyword_rules_v1.json` (DRAFT, not frozen). Evidence: the 326 train contracts only (`data/splits/train.json`, `data/gate3/train_*_768_512.csv`, `data/cuad/gate2_excerpt_review.csv`). No validation or test data used.
-Status: **APPROVED by Mahir 2026-10-16; C1-C4 (section 9) APPLIED to the JSON** (CL-G4 retired, CL-G7/G8/G9 added). Rule set remains an unfrozen draft.
+Rule set: `configs/keyword_rules_v1.json` (FROZEN 2026-10-18 as `keyword_rules_v1`, 184 IDs, SHA-256 `07602f34...7ba7e3`). Evidence: the 326 train contracts only (`data/splits/train.json`, `data/gate3/train_*_768_512.csv`, `data/cuad/gate2_excerpt_review.csv`). No validation or test data used.
+Status: **APPROVED by Mahir 2026-10-16; C1-C4 (section 9) APPLIED to the JSON** (CL-G4 retired, CL-G7/G8/G9 added).
 Claim labels: **VERIFIED** = seen in a cited source or scratch run on train; **INFERRED** = hypothesis.
 
 ## 1. Inclusion meaning

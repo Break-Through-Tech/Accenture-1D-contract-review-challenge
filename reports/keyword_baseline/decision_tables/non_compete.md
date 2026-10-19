@@ -1,7 +1,7 @@
 # Decision table: Non-Compete
 
-Rule set: `configs/keyword_rules_v1.json` (DRAFT, not frozen; 147 IDs after the Non-Transferable License edits). Evidence: the 326 train contracts only (`data/splits/train.json`, `data/gate3/train_*_768_512.csv`, `data/cuad/gate2_excerpt_review.csv`; no validation or test data used; `train_separate_questions.json` and `test.json` not opened).
-Status: **APPROVED and APPLIED 2026-10-16 (K1-K6 all approved by Mahir).** Rule file now 164 IDs; scorer reproduces train sim F1 .497.
+Rule set: `configs/keyword_rules_v1.json` (FROZEN 2026-10-18 as `keyword_rules_v1`, 184 IDs, SHA-256 `07602f34...7ba7e3`). Evidence: the 326 train contracts only (`data/splits/train.json`, `data/gate3/train_*_768_512.csv`, `data/cuad/gate2_excerpt_review.csv`; no validation or test data used; `train_separate_questions.json` and `test.json` not opened).
+Status: **APPROVED and APPLIED 2026-10-16 (K1-K6 all approved by Mahir).** The scorer reproduces train sim F1 .497.
 Claim labels: **VERIFIED** = seen in a cited source or scratch run on train; **INFERRED** = hypothesis.
 
 ## 1. Inclusion meaning

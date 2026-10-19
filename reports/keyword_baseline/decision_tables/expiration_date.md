@@ -1,6 +1,6 @@
 # Decision table: Expiration Date
 
-Rule set: `configs/keyword_rules_v1.json` (DRAFT, not frozen). Evidence: the 326 train contracts only (`data/splits/train.json`, `data/gate3/train_*_768_512.csv`, `data/cuad/gate2_excerpt_review.csv`; all gate-2 titles checked to be in train). No validation or test data used; `train_separate_questions.json` not opened.
+Rule set: `configs/keyword_rules_v1.json` (FROZEN 2026-10-18 as `keyword_rules_v1`, 184 IDs, SHA-256 `07602f34...7ba7e3`). Evidence: the 326 train contracts only (`data/splits/train.json`, `data/gate3/train_*_768_512.csv`, `data/cuad/gate2_excerpt_review.csv`; all gate-2 titles checked to be in train). No validation or test data used; `train_separate_questions.json` not opened.
 Status: **APPROVED and APPLIED 2026-10-18 (D1-D7, all approved by Mahir).** Rule file now 184 IDs; the scorer on the applied rules reproduces train sim F1 **.729** (th 3; 465 TP / 101 FP / 245 FN). D7 was added after the first version of this table (an earlier draft quoted .727 because its harness had demoted ED-G1-02/03 together with D2; sections 8-10 were recomputed from the applied rules on 2026-10-18).
 Claim labels: **VERIFIED** = seen in a cited source or scratch run on train; **INFERRED** = hypothesis.
 
