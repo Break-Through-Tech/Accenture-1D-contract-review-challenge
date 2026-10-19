@@ -19,7 +19,7 @@ PRED = ROOT / "reports" / "keyword_baseline" / "validation_predictions.csv"
 LABELS = ROOT / "data" / "gate3" / "validation_chunk_labels_768_512.csv"
 OUT = ROOT / "reports" / "keyword_baseline"
 THRESHOLDS = ROOT / "configs" / "keyword_thresholds_v1.json"
-LOW_SUPPORT = 20
+LOW_SUPPORT = 20  # warn when a category has this many positive validation contracts or fewer
 
 
 def sha256(path):
@@ -69,7 +69,7 @@ def main():
         final.append({"category": cat, "threshold": th, "max_possible_score": max_score, "tp": tp, "fp": fp, "fn": fn,
                       "tn": tn, "support": n_pos, "positive_contracts": contracts, "predicted_positive": tp + fp,
                       "precision": round(p, 4), "recall": round(r, 4), "f1": round(f, 4),
-                      "low_support_warning": n_pos < LOW_SUPPORT})
+                      "low_support_warning": contracts <= LOW_SUPPORT})
     res = pd.DataFrame(final)
     macro = float(res.f1.mean())
     TP, FP, FN = res.tp.sum(), res.fp.sum(), res.fn.sum()
