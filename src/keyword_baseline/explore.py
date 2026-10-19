@@ -2,14 +2,11 @@
 
 Run from repo root: .venv/bin/python -m src.keyword_baseline.explore "Anti-Assignment" ...
 """
-import contextlib
-import io
 import sys
 
 import pandas as pd
 
-with contextlib.redirect_stdout(io.StringIO()):  # data.py prints on import
-    from src.keyword_baseline.data import REVIEW_CSV, spans
+from src.keyword_baseline.data import REVIEW_CSV, load_train_spans
 
 SEED = 20260904  # error-selection seed from CLAUDE.md
 MAXCHARS = 420
@@ -20,6 +17,7 @@ def clip(text):
     return text if len(text) <= MAXCHARS else text[:MAXCHARS] + " ..."
 
 
+spans = load_train_spans(verbose=False)
 review = pd.read_csv(REVIEW_CSV)
 for cat in sys.argv[1:]:
     print(f"\n{'=' * 20} {cat} {'=' * 20}")
