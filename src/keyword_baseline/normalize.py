@@ -3,11 +3,18 @@
 Steps (Issue #8 spec): NFKC, casefold, unify quotes/dashes, collapse whitespace runs
 to one space. Done cluster by cluster (a base character plus its combining marks) so
 every normalized character knows which source characters it came from.
+
+Output is identical to normalize_text in PR #34 (TF-IDF baseline), which also maps the
+low/high-9 and prime quote variants; that function returns a string only, this one
+also returns the offset map.
 """
 import re
 import unicodedata
 
-_QUOTES = {"‘": "'", "’": "'", "“": '"', "”": '"'}
+_QUOTES = {
+    "\u2018": "'", "\u2019": "'", "\u201a": "'", "\u201b": "'", "\u2032": "'",
+    "\u201c": '"', "\u201d": '"', "\u201e": '"', "\u201f": '"', "\u2033": '"',
+}
 _DASHES = re.compile("[‐-―−]")
 
 
@@ -28,21 +35,17 @@ def normalize_with_map(text):
         piece = unicodedata.normalize("NFKC", text[a:b]).casefold()
         piece = "".join(_QUOTES.get(c, c) for c in piece)
         piece = _DASHES.sub("-", piece)
-        if piece.isspace() or piece == "":
-            if pending_space is None:
-                pending_space = [a, b]
-            else:
-                pending_space[1] = b
-            continue
-        if pending_space is not None:
-            out.append(" "); starts.append(pending_space[0]); ends.append(pending_space[1])
-            pending_space = None
         for c in piece:
-            if c.isspace():  # a space produced inside a cluster (e.g. NFKC of a no-break space)
-                out.append(" ")
-            else:
-                out.append(c)
-            starts.append(a); ends.append(b)
+            if c.isspace():  # includes a space made by NFKC inside a cluster (e.g. U+00A8)
+                if pending_space is None:
+                    pending_space = [a, b]
+                else:
+                    pending_space[1] = b
+                continue
+            if pending_space is not None:
+                out.append(" "); starts.append(pending_space[0]); ends.append(pending_space[1])
+                pending_space = None
+            out.append(c); starts.append(a); ends.append(b)
     if pending_space is not None:
         out.append(" "); starts.append(pending_space[0]); ends.append(pending_space[1])
     return "".join(out), starts, ends
