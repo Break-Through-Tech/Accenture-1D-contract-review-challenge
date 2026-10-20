@@ -1,0 +1,11 @@
+category,best_threshold,tp,fp,fn,f1,note
+Anti-Assignment,2,600,115,182,0.8016,train; optimistic; bug check only
+Cap On Liability,2,522,130,227,0.7452,train; optimistic; bug check only
+Change Of Control,3,150,105,132,0.5587,train; optimistic; bug check only
+Exclusivity,3,262,272,188,0.5325,train; optimistic; bug check only
+Expiration Date,3,465,101,245,0.7288,train; optimistic; bug check only
+License Grant,3,627,109,180,0.8127,train; optimistic; bug check only
+Non-Compete,2,172,211,137,0.4971,train; optimistic; bug check only
+Non-Transferable License,2,265,24,95,0.8166,train; optimistic; bug check only
+Renewal Term,2,206,24,105,0.7616,train; optimistic; bug check only
+Uncapped Liability,3,135,21,104,0.6835,train; optimistic; bug check only
