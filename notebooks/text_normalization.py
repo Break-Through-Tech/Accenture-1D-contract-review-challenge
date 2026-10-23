@@ -13,7 +13,7 @@ _QUOTE_DASH_MAP = str.maketrans({
 _WHITESPACE_RUN = re.compile(r"\s+")
 
 def normalize_text(text: str) -> str:
-    '''Normalizes text through4 steps: NFKC normalization, case folding, quote/dash mapping, 
+    '''Normalizes text through steps: NFKC normalization, case folding, quote/dash mapping, 
     and whitespace collapsing.'''
     text = unicodedata.normalize("NFKC", text)    # 1
     text = text.casefold()                        # 2
