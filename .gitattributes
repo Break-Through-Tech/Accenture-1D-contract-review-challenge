@@ -1,0 +1,3 @@
+# Data artifacts: store and check out byte-for-byte; never convert line endings.
+# Chunk text contains newlines inside quoted fields, and char offsets / text_hash depend on them.
+data/**/*.csv -text
