@@ -1,0 +1,12 @@
+# Official-test evaluation authorization
+
+- approved_commit: 0a9fbb3f6729d54545fa903ade815d6da89657ff
+- approver: 
+- executor: 
+- authorization_id: 
+- workflow_sha256: d74fe9e40d3646d119c65bd681b7c4127463e0a01cf51f469715dfa746930262
+- chunking_config_sha256: 56299189dc1b89fb61b364a5a3fff5ad65075ba2fc05941aed27a26634dbb126
+- artifact_bundle_ids: gate3_chunks-e0158a095e836390, keyword_baseline-3bfd6d82e960fdac, tfidf_baseline-d830ae28570e4fdc, gate3_validation_evaluation-e90d651440cd82f4
+- official_source_sha256: 007b6a40b0c65247f881627375c3d2e9b6aeeb5dfa89957494feed0765a1a073
+- authorization_time: 
+- permitted_action: one official-test evaluation of keyword_rules_v1 and the selected TF-IDF model on data/cuad/test.json chunked with gate3_chunking_v1, using notebooks/evaluation.py

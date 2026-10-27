@@ -1,22 +1,21 @@
 {
-  "workflow_run_id": "gate3-validation-20261027T185600Z",
+  "workflow_run_id": "gate3-validation-20261027T203046Z",
   "executed_by": "Annabel Wang",
-  "executed_at_utc": "2026-10-27T18:56:00+00:00",
+  "executed_at_utc": "2026-10-27T20:30:46+00:00",
   "where": {
     "platform": "Windows-11-10.0.26200-SP0",
     "machine": "AMD64",
     "python": "3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit (AMD64)]"
   },
   "code_revision": {
-    "commit": "0a9fbb3f6729d54545fa903ade815d6da89657ff",
+    "commit": "fc9e424a9c5bcba3c0c915ef7014c2cbac56fe60",
     "branch": "annabel-gate3-evaluation",
     "clean": false,
     "uncommitted": [
-      "A  AGENTS.md",
-      "?? notebooks/evaluation.py",
-      "?? notebooks/gate3_evaluation.ipynb",
-      "?? notebooks/gate4.ipynb",
-      "?? reports/gate3_evaluation/"
+      "M notebooks/gate3_evaluation.ipynb",
+      " M reports/gate3_evaluation/artifact_manifest.json",
+      " M reports/gate3_evaluation/validation_error_review_sheet.csv",
+      "?? docs/authorization/"
     ]
   },
   "notebook": "notebooks/gate3_evaluation.ipynb",
@@ -75,7 +74,7 @@
     "configs/keyword_thresholds_v1.json": "7765b0739d7699ed10021028ab2518ba083f97f560cffc67a29ad6bbd3b1fe15",
     "reports/keyword_baseline/validation_predictions.csv": "4457ccb4fb4f97dbe8acb43ec44d950ea1174186944c85f79b114d7981dc4281",
     "reports/tf_idf_baseline/selected_model.json": "570a562ed29a33d8f63a9beafb8948edb43f72981d1414efb9be4b884a8d182d",
-    "reports/tf_idf_baseline/validation_margins.csv": "c2d9fcfcc9e78339a3811a7ee0f884f675c23179913f4efe2f07b2fda53b5b2e"
+    "reports/tf_idf_baseline/validation_margins.csv": "e07c1f8cf7ebae956fc059c7ed7be7fe483254e3bdd56d658bcd4a89dcaa18f3"
   },
   "tfidf_array_sha256": {
     "features": "d64478128fa41a5c8a3f2e6150694d5e89ab849ead7e97e863877c7a2afcdaa3",
@@ -171,14 +170,14 @@
     ]
   },
   "workflow": {
-    "sha256": "d74fe9e40d3646d119c65bd681b7c4127463e0a01cf51f469715dfa746930262",
+    "sha256": "90bdf950306fb87d8aaf51757b2453e5822afdd2cbf2a1a077f010a43ad407ef",
     "files": {
       "configs/keyword_rules_v1.json": "07602f349bee5d1de0349b5daf9aabe5f3fb862e55dbb764767d2a56375ba7e3",
       "configs/keyword_thresholds_v1.json": "7765b0739d7699ed10021028ab2518ba083f97f560cffc67a29ad6bbd3b1fe15",
       "notebooks/create_split.ipynb": "48ae2a1592168df752115ab40fefd22961c3091a0951a573b6aba871307b61e3",
       "notebooks/evaluation.py": "df276f0a72583bcac2a039542a5ebea7a6e0a624ea2e093e302cd617ce476d48",
       "notebooks/gate3_chunking.ipynb": "66a69c39f66b82c929c60b747b8458f325b32a3bb26ea3bfdaf6f0f5f7b6be2d",
-      "notebooks/gate3_evaluation.ipynb": "05c230474a7c6bd0e44f3a162f6ba7592b816996a79a9401b9e040c145ddbfd4",
+      "notebooks/gate3_evaluation.ipynb": "db53243759632e781517caa330c5cb2db1c0c31cf590e8316f963955a1631e30",
       "notebooks/keyword_baseline.ipynb": "2a1f47a78c88afdabcb0bf63a6f305b69cbae08bf1d93099b8dffb7ced84e028",
       "notebooks/review_bundles.ipynb": "d30bfc0f90a59cf945038306c317ca4b2a6cd2ee4c136964178db1faf4dbc36c",
       "notebooks/text_normalization.py": "90db5401b3357581a72f622ebdfbdd6de5f174f673f01fd634e67655fa34503e",
@@ -204,7 +203,7 @@
       "gate3_chunks": "gate3_chunks-e0158a095e836390",
       "keyword_baseline": "keyword_baseline-3bfd6d82e960fdac",
       "tfidf_baseline": "tfidf_baseline-d830ae28570e4fdc",
-      "gate3_validation_evaluation": "gate3_validation_evaluation-e90d651440cd82f4"
+      "gate3_validation_evaluation": "gate3_validation_evaluation-2dfb1729d5a7f315"
     }
   }
 }
