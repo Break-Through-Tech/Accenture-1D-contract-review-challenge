@@ -1,0 +1,99 @@
+{
+  "selected_config": "min_df=2, C=10.0",
+  "text_normalization": "text_normalization.normalize_text: NFKC, casefold, quote/dash equivalents, whitespace runs -> one space",
+  "vectorizer": {
+    "lowercase": false,
+    "max_df": 1.0,
+    "max_features": null,
+    "min_df": 2,
+    "ngram_range": [
+      1,
+      2
+    ],
+    "norm": "l2",
+    "smooth_idf": true,
+    "stop_words": null,
+    "sublinear_tf": true,
+    "token_pattern": "(?u)\\b\\w+\\b",
+    "use_idf": true
+  },
+  "classifier": {
+    "C": 10.0,
+    "class_weight": "balanced",
+    "dual": true,
+    "fit_intercept": true,
+    "loss": "squared_hinge",
+    "max_iter": 10000,
+    "penalty": "l2",
+    "random_state": 20260902,
+    "tol": 0.0001
+  },
+  "scoring": "margin[c] = tfidf(normalize_text(text)) @ coef[c] + intercept[c]; detected if margin[c] >= threshold[c]",
+  "n_iter": {
+    "Anti-Assignment": 362,
+    "Cap On Liability": 191,
+    "Change Of Control": 181,
+    "Exclusivity": 367,
+    "Expiration Date": 860,
+    "License Grant": 142,
+    "Non-Compete": 195,
+    "Non-Transferable License": 175,
+    "Renewal Term": 173,
+    "Uncapped Liability": 173
+  },
+  "arrays": {
+    "features": {
+      "dtype": "<U161",
+      "shape": [
+        429844
+      ],
+      "sha256": "d64478128fa41a5c8a3f2e6150694d5e89ab849ead7e97e863877c7a2afcdaa3"
+    },
+    "idf": {
+      "dtype": "<f8",
+      "shape": [
+        429844
+      ],
+      "sha256": "4616c5cb4a84ede29cafdb7abe4a7834b187cf04b69fba446d083c87fe0d6de2"
+    },
+    "categories": {
+      "dtype": "<U24",
+      "shape": [
+        10
+      ],
+      "sha256": "e3a5efddd9334916817b1992fba1165e0d405dd9d6d3d6bfb7836a772bb9361e"
+    },
+    "coef": {
+      "dtype": "<f8",
+      "shape": [
+        10,
+        429844
+      ],
+      "sha256": "fe3f2c72d97d6b1fe5c96bf58a8f98b0156700b219ab96ad27b170e7b72c40c7"
+    },
+    "intercept": {
+      "dtype": "<f8",
+      "shape": [
+        10
+      ],
+      "sha256": "7269342f56abaed54903bccec50482af6723689c2ef6809ba8d73f5e719a8bb4"
+    },
+    "threshold": {
+      "dtype": "<f8",
+      "shape": [
+        10
+      ],
+      "sha256": "c7f503b996052624d35b93816d9adc941cf0dba1daf2cb841c023f03d5ec4cd9"
+    }
+  },
+  "npz_file_sha256": "ff57c592685a7fe3db252cb1432cbdfa5b5c04f68edf505d4a45f18925ad283a",
+  "chunking_config_version": [
+    "gate3_chunking_v1"
+  ],
+  "train_chunks_sha256": "1f3d30302161f9a880d96cbe17daf8cd50ac3f69568f641c8e0a4bb47d5485e8",
+  "validation_chunks_sha256": "0a8c08d446e5781e88a9ff043f3280f649896c50b6a0dcf2477c059b24a805bd",
+  "versions": {
+    "numpy": "2.0.2",
+    "scikit-learn": "1.6.1"
+  }
+}
