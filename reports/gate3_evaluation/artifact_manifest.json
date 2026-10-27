@@ -1,0 +1,174 @@
+{
+  "bundle_id": "gate3_validation_evaluation-e90d651440cd82f4",
+  "evaluation_set": "validation__gate3_chunking_v1",
+  "files": [
+    {
+      "path": "reports/gate3_evaluation/validation_rows.csv",
+      "sha256": "a34298781d3d0010da4b1b11ef5f67ce42b7970f360648659de2ccbc8ab73822",
+      "rows": 49620,
+      "columns": [
+        "baseline",
+        "chunk_id",
+        "title",
+        "context_group_id",
+        "category",
+        "score",
+        "threshold",
+        "detected",
+        "target",
+        "mask"
+      ]
+    },
+    {
+      "path": "reports/gate3_evaluation/validation_category_results.csv",
+      "sha256": "8634be2e01c78ed2b8536164a21fed8cd220d4992c410c9a8f6b6e4d70330acb",
+      "rows": 20,
+      "columns": [
+        "category",
+        "tp",
+        "fp",
+        "fn",
+        "tn",
+        "positive_support",
+        "negative_support",
+        "predicted_positive",
+        "precision",
+        "recall",
+        "f1",
+        "positive_contracts",
+        "positive_context_groups",
+        "predicted_context_groups",
+        "low_gold_support",
+        "low_predicted_support",
+        "zero_support",
+        "baseline"
+      ]
+    },
+    {
+      "path": "reports/gate3_evaluation/validation_summary.csv",
+      "sha256": "461abf1ad551525f4037f8a0d30a982acf2c8f8e6c7550abcc92f14499e61337",
+      "rows": 2,
+      "columns": [
+        "baseline",
+        "macro_f1",
+        "micro_precision",
+        "micro_recall",
+        "micro_f1",
+        "tp",
+        "fp",
+        "fn",
+        "tn"
+      ]
+    },
+    {
+      "path": "reports/gate3_evaluation/validation_bootstrap_intervals.csv",
+      "sha256": "ec12f177bfb7a139aa46536b8d5883354e370b71b1e32998082a53a7378e12f1",
+      "rows": 36,
+      "columns": [
+        "scope",
+        "metric",
+        "category",
+        "lower_95",
+        "upper_95",
+        "width",
+        "reps_without_positive_support",
+        "unstable"
+      ]
+    },
+    {
+      "path": "reports/gate3_evaluation/validation_error_population.csv",
+      "sha256": "496674918276dc6a0e985288db5d9620175d473f823774620643f0bcec7acf23",
+      "rows": 1464,
+      "columns": [
+        "baseline",
+        "chunk_id",
+        "title",
+        "context_group_id",
+        "category",
+        "score",
+        "threshold",
+        "detected",
+        "target",
+        "mask",
+        "error_type"
+      ]
+    },
+    {
+      "path": "reports/gate3_evaluation/validation_error_groups.csv",
+      "sha256": "5a93f97372da9abf7e6a80f9d0a1dec7e75c7c49adee81d1c13399a3eb10fb28",
+      "rows": 40,
+      "columns": [
+        "baseline",
+        "category",
+        "error_type",
+        "n_errors",
+        "n_selected",
+        "no_errors"
+      ]
+    },
+    {
+      "path": "reports/gate3_evaluation/validation_error_review_sheet.csv",
+      "sha256": "a553039587042067c4a8120599ece8048101c3235715054b1c47d9bf49f848a1",
+      "rows": 396,
+      "columns": [
+        "baseline",
+        "chunk_id",
+        "title",
+        "context_group_id",
+        "category",
+        "score",
+        "threshold",
+        "detected",
+        "target",
+        "mask",
+        "error_type",
+        "ranking_key",
+        "selection_order",
+        "review_order",
+        "reviewer_slot",
+        "reviewer",
+        "primary_cause",
+        "secondary_causes",
+        "evidence_note",
+        "confidence",
+        "workflow_stage"
+      ]
+    }
+  ],
+  "sources": {
+    "gate3_chunks-e0158a095e836390": [
+      {
+        "path": "data/gate3/train_chunk_labels_768_512.csv",
+        "sha256": "ca51921b7bb05b5b9a943dc1ae5451c5dc5214a20d31e2852d57314b7a9dc593"
+      },
+      {
+        "path": "data/gate3/train_chunks_768_512.csv",
+        "sha256": "2f0e9d83f6571b600346c6d0ac6e33377fdb14d99cf9d33fd53f27081270962f"
+      },
+      {
+        "path": "data/gate3/validation_chunk_labels_768_512.csv",
+        "sha256": "f74ba8a652f9e278de1ff69da0083d62be71db715b3809c75c7489365e238bd5"
+      },
+      {
+        "path": "data/gate3/validation_chunks_768_512.csv",
+        "sha256": "c80623ba09dcd7785f3049e0de2eddba59a9030127fd548d1429614cb5ea50a2"
+      }
+    ],
+    "keyword_baseline-3bfd6d82e960fdac": [
+      {
+        "path": "configs/keyword_rules_v1.json",
+        "sha256": "07602f349bee5d1de0349b5daf9aabe5f3fb862e55dbb764767d2a56375ba7e3"
+      },
+      {
+        "path": "configs/keyword_thresholds_v1.json",
+        "sha256": "7765b0739d7699ed10021028ab2518ba083f97f560cffc67a29ad6bbd3b1fe15"
+      }
+    ],
+    "tfidf_baseline-d830ae28570e4fdc": [
+      {
+        "path": "reports/tf_idf_baseline/selected_model.json",
+        "sha256": "570a562ed29a33d8f63a9beafb8948edb43f72981d1414efb9be4b884a8d182d"
+      }
+    ]
+  }
+}

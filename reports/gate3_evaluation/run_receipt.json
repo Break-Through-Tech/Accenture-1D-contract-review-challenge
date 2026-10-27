@@ -1,0 +1,210 @@
+{
+  "workflow_run_id": "gate3-validation-20261027T185600Z",
+  "executed_by": "Annabel Wang",
+  "executed_at_utc": "2026-10-27T18:56:00+00:00",
+  "where": {
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "python": "3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit (AMD64)]"
+  },
+  "code_revision": {
+    "commit": "0a9fbb3f6729d54545fa903ade815d6da89657ff",
+    "branch": "annabel-gate3-evaluation",
+    "clean": false,
+    "uncommitted": [
+      "A  AGENTS.md",
+      "?? notebooks/evaluation.py",
+      "?? notebooks/gate3_evaluation.ipynb",
+      "?? notebooks/gate4.ipynb",
+      "?? reports/gate3_evaluation/"
+    ]
+  },
+  "notebook": "notebooks/gate3_evaluation.ipynb",
+  "runtime": {
+    "numpy": "2.0.2",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.13.1",
+    "ipykernel": "6.31.0",
+    "jupyter_core": "5.8.1",
+    "nbformat": "5.10.4"
+  },
+  "dependency_lock": {
+    "path": "requirements.txt",
+    "sha256": "337036373040a6e325df668bf7c8c53783ae86505de0c061372a7dadb9ae4be7"
+  },
+  "processing_threads": {
+    "env": {
+      "OMP_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null
+    },
+    "cpu_count": 20,
+    "threadpools": [
+      {
+        "internal_api": "openblas",
+        "num_threads": 20,
+        "version": "0.3.27"
+      },
+      {
+        "internal_api": "openmp",
+        "num_threads": 20,
+        "version": null
+      },
+      {
+        "internal_api": "openblas",
+        "num_threads": 20,
+        "version": "0.3.27"
+      }
+    ]
+  },
+  "development_use_rules": [
+    "official test set not loaded in development; model selection on data/splits train/validation only",
+    "split frozen (seed 20260901); chunking frozen (gate3_chunking_v1)",
+    "vectorizer, IDF and classifiers fitted on training chunks only",
+    "keyword rules frozen before validation scoring (configs/keyword_freeze_v1.md)",
+    "masked pairs excluded from thresholds, metrics and error lists"
+  ],
+  "inputs": {
+    "data/gate3/train_chunks_768_512.csv": "2f0e9d83f6571b600346c6d0ac6e33377fdb14d99cf9d33fd53f27081270962f",
+    "data/gate3/train_chunk_labels_768_512.csv": "ca51921b7bb05b5b9a943dc1ae5451c5dc5214a20d31e2852d57314b7a9dc593",
+    "data/gate3/validation_chunks_768_512.csv": "c80623ba09dcd7785f3049e0de2eddba59a9030127fd548d1429614cb5ea50a2",
+    "data/gate3/validation_chunk_labels_768_512.csv": "f74ba8a652f9e278de1ff69da0083d62be71db715b3809c75c7489365e238bd5",
+    "data/splits/split_manifest.csv": "c4418cc50d2c5b501fdbdeb9b55f4fe87edd3fd60c7ab5c31c20ae33ede7b010",
+    "configs/keyword_rules_v1.json": "07602f349bee5d1de0349b5daf9aabe5f3fb862e55dbb764767d2a56375ba7e3",
+    "configs/keyword_thresholds_v1.json": "7765b0739d7699ed10021028ab2518ba083f97f560cffc67a29ad6bbd3b1fe15",
+    "reports/keyword_baseline/validation_predictions.csv": "4457ccb4fb4f97dbe8acb43ec44d950ea1174186944c85f79b114d7981dc4281",
+    "reports/tf_idf_baseline/selected_model.json": "570a562ed29a33d8f63a9beafb8948edb43f72981d1414efb9be4b884a8d182d",
+    "reports/tf_idf_baseline/validation_margins.csv": "c2d9fcfcc9e78339a3811a7ee0f884f675c23179913f4efe2f07b2fda53b5b2e"
+  },
+  "tfidf_array_sha256": {
+    "features": "d64478128fa41a5c8a3f2e6150694d5e89ab849ead7e97e863877c7a2afcdaa3",
+    "idf": "4616c5cb4a84ede29cafdb7abe4a7834b187cf04b69fba446d083c87fe0d6de2",
+    "categories": "e3a5efddd9334916817b1992fba1165e0d405dd9d6d3d6bfb7836a772bb9361e",
+    "coef": "fe3f2c72d97d6b1fe5c96bf58a8f98b0156700b219ab96ad27b170e7b72c40c7",
+    "intercept": "7269342f56abaed54903bccec50482af6723689c2ef6809ba8d73f5e719a8bb4",
+    "threshold": "c7f503b996052624d35b93816d9adc941cf0dba1daf2cb841c023f03d5ec4cd9"
+  },
+  "chunking": {
+    "criteria": [
+      "complete span coverage (no lost positive annotations)",
+      "boundary-split spans",
+      "masked pairs",
+      "overlap cost",
+      "processing cost"
+    ],
+    "candidates": [
+      {
+        "method": "512/0",
+        "total_chunks": 5280,
+        "fully_covered": 2403,
+        "boundary_split": 292,
+        "lost_positives": 292,
+        "masked_pairs": 391
+      },
+      {
+        "method": "512/128",
+        "total_chunks": 6875,
+        "fully_covered": 2675,
+        "boundary_split": 740,
+        "lost_positives": 20,
+        "masked_pairs": 495
+      },
+      {
+        "method": "768/512",
+        "total_chunks": 9765,
+        "fully_covered": 2695,
+        "boundary_split": 596,
+        "lost_positives": 0,
+        "masked_pairs": 699
+      }
+    ],
+    "decision": "approved 768/512: the only candidate with zero lost positive annotations; 512/0 and 512/128 rejected for lost positives (512/256 and 512/384 also still lost at least one)",
+    "approved_settings": {
+      "config_version": "gate3_chunking_v1",
+      "token_pattern": "\\S+",
+      "chunk_size": 768,
+      "overlap": 512,
+      "step_size": 256
+    },
+    "config_sha256": "56299189dc1b89fb61b364a5a3fff5ad65075ba2fc05941aed27a26634dbb126",
+    "source_notebook_sha256": "66a69c39f66b82c929c60b747b8458f325b32a3bb26ea3bfdaf6f0f5f7b6be2d"
+  },
+  "locked_rules": {
+    "evaluation_py_sha256": "df276f0a72583bcac2a039542a5ebea7a6e0a624ea2e093e302cd617ce476d48",
+    "bootstrap": {
+      "reps": 10000,
+      "seed": 20260903,
+      "unit": "context_group_id",
+      "interval": "95% percentile",
+      "paired": true
+    },
+    "low_support_context_groups": 20,
+    "error_selection": {
+      "seed": 20260904,
+      "per_group": 5,
+      "protocol_version": "error_selection_v1",
+      "key": "sha256(seed|eval_set_id|baseline|category|error_type|context_group_id|chunk_id)"
+    },
+    "reviewer_seed": 20260905,
+    "primary_causes": [
+      "gold_data",
+      "chunking",
+      "language_context",
+      "baseline",
+      "pipeline",
+      "unresolved"
+    ],
+    "secondary_causes": [
+      "lexical_or_drafting_variation",
+      "neighboring_category_confusion",
+      "negation_exception_polarity_scope",
+      "party_entity_coreference",
+      "long_range_dependency_or_cross_reference",
+      "generic_boilerplate",
+      "keyword_coverage_proximity_veto_aggregation",
+      "tfidf_vocabulary_weighting_linear_ranking",
+      "threshold_tradeoff",
+      "overlap_or_duplicate_concentration",
+      "annotation_ambiguity_or_inconsistency",
+      "other"
+    ]
+  },
+  "workflow": {
+    "sha256": "d74fe9e40d3646d119c65bd681b7c4127463e0a01cf51f469715dfa746930262",
+    "files": {
+      "configs/keyword_rules_v1.json": "07602f349bee5d1de0349b5daf9aabe5f3fb862e55dbb764767d2a56375ba7e3",
+      "configs/keyword_thresholds_v1.json": "7765b0739d7699ed10021028ab2518ba083f97f560cffc67a29ad6bbd3b1fe15",
+      "notebooks/create_split.ipynb": "48ae2a1592168df752115ab40fefd22961c3091a0951a573b6aba871307b61e3",
+      "notebooks/evaluation.py": "df276f0a72583bcac2a039542a5ebea7a6e0a624ea2e093e302cd617ce476d48",
+      "notebooks/gate3_chunking.ipynb": "66a69c39f66b82c929c60b747b8458f325b32a3bb26ea3bfdaf6f0f5f7b6be2d",
+      "notebooks/gate3_evaluation.ipynb": "05c230474a7c6bd0e44f3a162f6ba7592b816996a79a9401b9e040c145ddbfd4",
+      "notebooks/keyword_baseline.ipynb": "2a1f47a78c88afdabcb0bf63a6f305b69cbae08bf1d93099b8dffb7ced84e028",
+      "notebooks/review_bundles.ipynb": "d30bfc0f90a59cf945038306c317ca4b2a6cd2ee4c136964178db1faf4dbc36c",
+      "notebooks/text_normalization.py": "90db5401b3357581a72f622ebdfbdd6de5f174f673f01fd634e67655fa34503e",
+      "notebooks/tf_idf_baseline.ipynb": "1313458b0a46ad2039d00a199f51a97843d49202fe741be2b50ea80ba4601998",
+      "requirements.txt": "337036373040a6e325df668bf7c8c53783ae86505de0c061372a7dadb9ae4be7",
+      "src/keyword_baseline/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "src/keyword_baseline/data.py": "d7e2291a0fbd02dea76203a4d76f17a4f658d53568b88b528ff60b9f2ada0508",
+      "src/keyword_baseline/evaluate.py": "a52a0202442a648ec82586decb056827403b4779fd330c26df3bdcbdcc325b6a",
+      "src/keyword_baseline/explore.py": "04172883b35eadc5d4d58ad658bbf0e455df3a5c8eb03f16aa63f4b12e9188c6",
+      "src/keyword_baseline/normalize.py": "92dbbdda90b129686c58c0e1074efaac738c3035122684550b04228d4213a7c1",
+      "src/keyword_baseline/score_chunks.py": "e727b9582f46e7c1abd66369307e23610307ee2d75ff5c6c178a4018f2bbcc3e",
+      "src/keyword_baseline/scorer.py": "bdb82a935884802316014e891450ea8f5a635d47b9d38c706d80b3faa2733e69",
+      "src/keyword_baseline/train_sanity.py": "74274ed99f692953a0cad5a4657dd45f6a07ff4e85f7523caa878b79fdab1ffb"
+    }
+  },
+  "separation_of_use": {
+    "workflow_files_mentioning_official_test": [],
+    "all_output_contracts_in_validation_split": true
+  },
+  "outputs": {
+    "artifact_manifest": "reports/gate3_evaluation/artifact_manifest.json",
+    "bundle_ids": {
+      "gate3_chunks": "gate3_chunks-e0158a095e836390",
+      "keyword_baseline": "keyword_baseline-3bfd6d82e960fdac",
+      "tfidf_baseline": "tfidf_baseline-d830ae28570e4fdc",
+      "gate3_validation_evaluation": "gate3_validation_evaluation-e90d651440cd82f4"
+    }
+  }
+}
