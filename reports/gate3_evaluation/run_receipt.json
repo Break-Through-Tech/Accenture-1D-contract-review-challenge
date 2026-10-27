@@ -1,19 +1,17 @@
 {
-  "workflow_run_id": "gate3-validation-20261027T205020Z",
+  "workflow_run_id": "gate3-validation-20261027T205406Z",
   "executed_by": "Annabel Wang",
-  "executed_at_utc": "2026-10-27T20:50:20+00:00",
+  "executed_at_utc": "2026-10-27T20:54:06+00:00",
   "where": {
     "platform": "Windows-11-10.0.26200-SP0",
     "machine": "AMD64",
     "python": "3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit (AMD64)]"
   },
   "code_revision": {
-    "commit": "42d4363368fcaaf806ad8eb640bab22b90df5f56",
+    "commit": "4455f9402dc49650e046c74eb5d5cde11b3f962e",
     "branch": "annabel-gate3-evaluation",
-    "clean": false,
-    "uncommitted": [
-      "code cells changed: notebooks/gate3_evaluation.ipynb"
-    ]
+    "clean": true,
+    "uncommitted": []
   },
   "notebook": "notebooks/gate3_evaluation.ipynb",
   "runtime": {

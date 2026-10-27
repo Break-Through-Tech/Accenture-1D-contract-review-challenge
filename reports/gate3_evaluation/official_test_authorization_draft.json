@@ -1,9 +1,9 @@
 {
-  "approved_commit": "fc9e424a9c5bcba3c0c915ef7014c2cbac56fe60",
+  "approved_commit": "4455f9402dc49650e046c74eb5d5cde11b3f962e",
   "approver": null,
-  "executor": null,
-  "authorization_id": null,
-  "workflow_sha256": "90bdf950306fb87d8aaf51757b2453e5822afdd2cbf2a1a077f010a43ad407ef",
+  "executor": "Annabel Wang",
+  "authorization_id": "AUTH-TEST-001",
+  "workflow_sha256": "5ea7a6498c459677a70005d2319eddd49839fde5d505d0cfa3c6bc5dd227a9c9",
   "chunking_config_sha256": "56299189dc1b89fb61b364a5a3fff5ad65075ba2fc05941aed27a26634dbb126",
   "artifact_bundle_ids": [
     "gate3_chunks-e0158a095e836390",
