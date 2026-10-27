@@ -1,0 +1,11 @@
+category,threshold,max_possible_score,tp,fp,fn,tn,support,positive_contracts,predicted_positive,precision,recall,f1,low_support_warning
+Renewal Term,1,6,55,14,23,2381,78,31,69,0.7971,0.7051,0.7483,False
+Expiration Date,3,11,115,22,77,2251,192,71,137,0.8394,0.599,0.6991,False
+License Grant,3,6,145,27,62,2224,207,41,172,0.843,0.7005,0.7652,False
+Non-Transferable License,2,7,77,3,12,2384,89,26,80,0.9625,0.8652,0.9112,False
+Exclusivity,3,5,74,67,45,2270,119,31,141,0.5248,0.6218,0.5692,False
+Non-Compete,2,11,39,52,33,2355,72,19,91,0.4286,0.5417,0.4785,True
+Cap On Liability,2,9,138,19,91,2198,229,50,157,0.879,0.6026,0.715,False
+Uncapped Liability,3,9,32,7,34,2400,66,20,39,0.8205,0.4848,0.6095,True
+Anti-Assignment,2,10,169,44,48,2187,217,67,213,0.7934,0.7788,0.786,False
+Change Of Control,2,10,49,97,24,2302,73,19,146,0.3356,0.6712,0.4475,True

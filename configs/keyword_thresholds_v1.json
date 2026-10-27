@@ -1,0 +1,20 @@
+{
+  "rule_set_version": "keyword_rules_v1",
+  "rules_sha256": "07602f349bee5d1de0349b5daf9aabe5f3fb862e55dbb764767d2a56375ba7e3",
+  "predictions_sha256": "69d6900e1aac5f2122826b7bffcab12e8706e68f27c56a5e3c5b5d6c08428fff",
+  "threshold_rule": "integers 1..max possible score; highest F1, tie higher recall, tie lower threshold; unmasked pairs only",
+  "thresholds": {
+    "Renewal Term": 1,
+    "Expiration Date": 3,
+    "License Grant": 3,
+    "Non-Transferable License": 2,
+    "Exclusivity": 3,
+    "Non-Compete": 2,
+    "Cap On Liability": 2,
+    "Uncapped Liability": 3,
+    "Anti-Assignment": 2,
+    "Change Of Control": 2
+  },
+  "validation_macro_f1": 0.6729,
+  "validation_micro_f1": 0.6904
+}
