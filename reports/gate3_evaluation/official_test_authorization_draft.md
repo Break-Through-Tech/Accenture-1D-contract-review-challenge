@@ -1,0 +1,12 @@
+# Official-test evaluation authorization
+
+- approved_commit: 4455f9402dc49650e046c74eb5d5cde11b3f962e
+- approver:
+- executor: Annabel Wang
+- authorization_id: AUTH-TEST-001
+- workflow_sha256: 5ea7a6498c459677a70005d2319eddd49839fde5d505d0cfa3c6bc5dd227a9c9
+- chunking_config_sha256: 56299189dc1b89fb61b364a5a3fff5ad65075ba2fc05941aed27a26634dbb126
+- artifact_bundle_ids: gate3_chunks-e0158a095e836390, keyword_baseline-3bfd6d82e960fdac, tfidf_baseline-d830ae28570e4fdc, gate3_validation_evaluation-2dfb1729d5a7f315
+- official_source_sha256: 007b6a40b0c65247f881627375c3d2e9b6aeeb5dfa89957494feed0765a1a073
+- authorization_time:
+- permitted_action: one official-test evaluation of keyword_rules_v1 and the selected TF-IDF model on data/cuad/test.json chunked with gate3_chunking_v1, using notebooks/evaluation.py

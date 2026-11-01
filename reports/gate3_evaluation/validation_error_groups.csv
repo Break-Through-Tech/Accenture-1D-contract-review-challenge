@@ -1,0 +1,41 @@
+baseline,category,error_type,n_errors,n_selected,no_errors
+keyword,Anti-Assignment,false_positive,44,5,False
+keyword,Anti-Assignment,false_negative,48,5,False
+keyword,Cap On Liability,false_positive,19,5,False
+keyword,Cap On Liability,false_negative,91,5,False
+keyword,Change Of Control,false_positive,97,5,False
+keyword,Change Of Control,false_negative,24,5,False
+keyword,Exclusivity,false_positive,67,5,False
+keyword,Exclusivity,false_negative,45,5,False
+keyword,Expiration Date,false_positive,22,5,False
+keyword,Expiration Date,false_negative,77,5,False
+keyword,License Grant,false_positive,27,5,False
+keyword,License Grant,false_negative,62,5,False
+keyword,Non-Compete,false_positive,52,5,False
+keyword,Non-Compete,false_negative,33,5,False
+keyword,Non-Transferable License,false_positive,3,3,False
+keyword,Non-Transferable License,false_negative,12,5,False
+keyword,Renewal Term,false_positive,14,5,False
+keyword,Renewal Term,false_negative,23,5,False
+keyword,Uncapped Liability,false_positive,7,5,False
+keyword,Uncapped Liability,false_negative,34,5,False
+tfidf,Anti-Assignment,false_positive,30,5,False
+tfidf,Anti-Assignment,false_negative,35,5,False
+tfidf,Cap On Liability,false_positive,25,5,False
+tfidf,Cap On Liability,false_negative,61,5,False
+tfidf,Change Of Control,false_positive,35,5,False
+tfidf,Change Of Control,false_negative,35,5,False
+tfidf,Exclusivity,false_positive,53,5,False
+tfidf,Exclusivity,false_negative,55,5,False
+tfidf,Expiration Date,false_positive,25,5,False
+tfidf,Expiration Date,false_negative,45,5,False
+tfidf,License Grant,false_positive,30,5,False
+tfidf,License Grant,false_negative,42,5,False
+tfidf,Non-Compete,false_positive,42,5,False
+tfidf,Non-Compete,false_negative,33,5,False
+tfidf,Non-Transferable License,false_positive,28,5,False
+tfidf,Non-Transferable License,false_negative,13,5,False
+tfidf,Renewal Term,false_positive,7,5,False
+tfidf,Renewal Term,false_negative,22,5,False
+tfidf,Uncapped Liability,false_positive,33,5,False
+tfidf,Uncapped Liability,false_negative,14,5,False
