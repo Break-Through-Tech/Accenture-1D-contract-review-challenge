@@ -1,0 +1,9 @@
+{
+  "category_order.json": "38e598b7053d693d87a7ce6988c7e61d7109cd44a4b1d044967b3a7d36180480",
+  "config.json": "8e9c74478ae1457d41054cecf76e139da790e1d7073085f2d4bfa018eb70c730",
+  "metadata.json": "b54e632c6f30ae719077ad7f6ee790095878a5729203b2b8a72dc870cc82dd57",
+  "model.safetensors": "cc8ff6a049fe46ccfde88992e758d7dae7f06b6871c4f327cf8606e72e27aa52",
+  "thresholds.json": "e1c789b2ae4eaed09475cbf9491920c373e50ddee78180d82fbc9a356738c2b5",
+  "tokenizer.json": "0fc88ec706f80b2eb15174d04fa7377948ca3f07065985deec1e28d3fb1cda9d",
+  "tokenizer_config.json": "fb54f027372062b2ca52282efb04d178a8b57167a00cd8f4e816515823a2c016"
+}
