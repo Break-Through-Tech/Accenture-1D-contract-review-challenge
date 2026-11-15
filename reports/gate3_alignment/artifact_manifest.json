@@ -1,0 +1,37 @@
+{
+  "task": "Gate 3.1 Evaluation Alignment",
+  "source_commit": "259017aaad5180dce8d93dda00cf6c9a40329b24",
+  "artifacts": {
+    "data/gate3/validation_chunks_768_512.csv": {
+      "sha256": "c80623ba09dcd7785f3049e0de2eddba59a9030127fd548d1429614cb5ea50a2",
+      "size_bytes": 13455528
+    },
+    "data/gate3/validation_chunk_labels_768_512.csv": {
+      "sha256": "f74ba8a652f9e278de1ff69da0083d62be71db715b3809c75c7489365e238bd5",
+      "size_bytes": 5121005
+    },
+    "reports/gate3_evaluation/validation_rows.csv": {
+      "sha256": "c369c90d137a6c3b9c264b6f8db69ba0b554aa37b9e104d79d5454ac090a6846",
+      "size_bytes": 14377214
+    },
+    "configs/keyword_rules_v1.json": {
+      "sha256": "c18fd0b75f50c6c970878d7f7ab1644a00687705e6434ced5142d134ea5a6967",
+      "size_bytes": 99080
+    },
+    "configs/keyword_thresholds_v1.json": {
+      "sha256": "a80e30a3fe7401a3d36b12405ec721e52837b480b2a118dc64c520e5a7ffd280",
+      "size_bytes": 718
+    },
+    "reports/tf_idf_baseline/selected_model.npz": {
+      "sha256": "ff57c592685a7fe3db252cb1432cbdfa5b5c04f68edf505d4a45f18925ad283a",
+      "size_bytes": 20481459
+    },
+    "reports/tf_idf_baseline/selected_model.json": {
+      "sha256": "3e6223f9b410e058adbf237782f2b1e20c8b652c3b9a604afe14986ad1c313e3",
+      "size_bytes": 2686
+    }
+  },
+  "missing_artifacts": [
+    "reports/gate3_alignment/transformer_validation_predictions.csv"
+  ]
+}
